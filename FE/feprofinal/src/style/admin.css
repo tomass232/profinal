@@ -1,0 +1,147 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-container {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+
+.admin-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #001aff;
+  padding: 15px 30px;
+  color: white;
+}
+
+.admin-nav .logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.admin-nav .nav-links a {
+  color: white;
+  margin-left: 30px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: opacity 0.3s;
+}
+
+.admin-nav .nav-links a:hover {
+  opacity: 0.8;
+}
+
+
+.admin-content {
+  padding: 40px;
+}
+
+.admin-title {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.admin-subtitle {
+  font-size: 18px;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+
+.admin-body {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+.admin-form {
+  width: 48%;
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+
+.admin-form h3 {
+  color: #0033cc;
+  margin-bottom: 15px;
+}
+
+.admin-form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 500;
+  color: #444;
+}
+
+.admin-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s;
+}
+
+.admin-form input[type="text"]:focus {
+  border-color: #0055ff;
+  outline: none;
+}
+
+.checkbox {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  margin-right: 8px;
+}
+
+.checkbox label {
+  font-size: 14px;
+  color: #555;
+}
+
+
+.admin-results {
+  margin-top: 25px;
+  font-size: 22px;
+  color: #0066cc;
+  text-align: right;
+  width: 48%;
+}
+
+.admin-results a {
+  text-decoration: underline;
+  color: #007bff;
+  font-weight: 500;
+}
+
+
+@media (max-width: 768px) {
+  .admin-body {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .admin-form, .admin-results {
+    width: 100%;
+  }
+
+  .admin-results {
+    text-align: left;
+  }
+}
