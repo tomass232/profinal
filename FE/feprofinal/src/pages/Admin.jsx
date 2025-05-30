@@ -1,6 +1,6 @@
 import React from 'react';
 import FormAdmin from '../components/FormAdmin';
-import './Admin.css';
+import '../styles/admin.css';
 
 const Admin = () => {
   return (
@@ -9,7 +9,7 @@ const Admin = () => {
         <div className="logo">AdminPanel</div>
         <div className="nav-links">
           <a href="#">Dashboard</a>
-          <a href="#">My list</a>
+          <a href="#">My List</a>
           <a href="#">Exports</a>
         </div>
       </nav>
@@ -31,3 +31,4 @@ const Admin = () => {
 };
 
 export default Admin;
+
