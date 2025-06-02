@@ -1,14 +1,8 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import React from "react";
 import FormHome from "../components/FormHome";
 
 function Home() {
-    return (
-        <>
-            <Navbar />
-            <FormHome/>
-            <Footer />
-        </>
-    )
+  return <FormHome />;
 }
+
 export default Home;
