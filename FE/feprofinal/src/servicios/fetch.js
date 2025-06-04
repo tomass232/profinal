@@ -1,6 +1,6 @@
 const postData = async(endpoint,obj) =>{
     try {
-        const peticion = await fetch(endpoint, {
+        const peticion = await fetch(`http://localhost:8000/${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ const postData = async(endpoint,obj) =>{
 }
 const getData = async(endpoint) =>{
     try {
-        const peticion = await fetch(endpoint);
+        const peticion = await fetch(`http://localhost:8000/${endpoint}`);
         const respuesta = await peticion.json();
         return respuesta;
     } catch (error) {
