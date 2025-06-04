@@ -1,9 +1,14 @@
 import React from 'react'
+import "../styles/footer.css";
 
 const Footer = () => {
   return (
-    <div>Footer</div>
-  )
-}
+    <footer className="custom-footer">
+      <div className="footer-item">No subscription</div>
+      <div className="footer-item">no running advertisement costs</div>
+      <div className="footer-item">Free to successful rental</div>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;

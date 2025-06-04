@@ -46,3 +46,9 @@
 .contenido button:hover {
   background-color: #653f27;
 }
+.footer-contenedor{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}

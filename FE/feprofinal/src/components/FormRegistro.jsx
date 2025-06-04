@@ -33,7 +33,7 @@ function FormRegistro() {
           />
 
           <label>Correo: </label>
-          <input
+          <input  
             type="email"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
