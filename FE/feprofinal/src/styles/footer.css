@@ -1,9 +1,15 @@
+.custom-footer {
+  background-color: #7a5638; /* marrón similar al de la imagen */
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
 
-.custom-footer{
-    background-color:red;
-    padding: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #6c757d;
-    z-index: 1000;
+.footer-item {
+  text-align: center;
+  flex: 1;
 }
