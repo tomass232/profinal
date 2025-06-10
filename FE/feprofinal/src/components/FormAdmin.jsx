@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/admin.css';
 
-const Admin = () => {
+const FormAdmin = () => {
   return (
     <div className="admin-container">
       <nav className="admin-nav">
@@ -36,7 +36,7 @@ const Admin = () => {
             <label>Location</label>
             <input type="text" placeholder="Enter location" className="search-input" />
 
-            <button className="search-button">Apply Filters</button>
+            <button class="btn">Apply</button>
           </div>
         </div>
 
@@ -50,6 +50,7 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default FormAdmin;
+
 
 

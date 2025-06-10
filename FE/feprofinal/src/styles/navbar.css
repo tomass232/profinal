@@ -1,0 +1,33 @@
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(to right, #919efe,#919efe ); 
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.navbar-item {
+  padding: 10px 20px;
+  text-align: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 8px;
+}
+
+.navbar-item:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+body {
+  margin-top: 60px;
+}
