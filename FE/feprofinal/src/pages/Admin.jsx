@@ -1,11 +1,15 @@
 import React from 'react'
-function FormAdmin() {
+import FormAdmin from "../components/FormAdmin";
+
+function Admin() {
   return (
-    <div>FormAdmin</div>
+    <div>
+      <FormAdmin/>
+    </div>
   )
 }
 
-export default FormAdmin
+export default Admin
 
 
 

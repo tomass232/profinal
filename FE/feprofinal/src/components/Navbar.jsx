@@ -1,9 +1,14 @@
 import React from 'react'
+import "../styles/navbar.css";
 
-function Navbar() {
+const Navbar= () => {
   return (
-    <div>Navbar</div>
-  )
-}
+    <footer className="custom-navbar">
+      <div className="navbar-item">No subscription</div>
+      <div className="navbar-item">Inicia Sesion!</div>
+      <div className="navbar-item">Registrate!</div>
+    </footer>
+  );
+};
 
-export default Navbar
+export default Navbar;
