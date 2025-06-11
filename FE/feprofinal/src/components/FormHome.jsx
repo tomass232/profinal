@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/Home.css";
-
+import { Link  } from "react-router-dom";
 function FormHome() {
   return (
     <div className="home">
@@ -13,7 +13,9 @@ function FormHome() {
         <h1>Únete al cambio. Sé parte de una 
           <br />
           comunidad que transforma realidades</h1>
-        <button>Conocer más</button>
+          <Link to="/inscripcion">
+          <button>Conocer más</button>
+          </Link>
       </div>
     </div>
   );

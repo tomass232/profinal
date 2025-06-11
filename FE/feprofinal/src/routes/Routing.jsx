@@ -5,6 +5,7 @@ import Registro from "../pages/Registro";
 import Perfil from "../pages/Perfil";
 import Campaña from "../pages/Inscripcion";
 import Admin from "../pages/Admin";
+import Inscripcion from "../pages/Inscripcion";
 
 function Routing() {
   return (
@@ -12,10 +13,11 @@ function Routing() {
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Home />} />
+        <Route path="/h" element={<Home />} />        
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/perfil" element={<Perfil />} />
-        <Route path="/inscripcion" element={<Campaña />} />
+        <Route path="/inscripcion" element={<Inscripcion />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
