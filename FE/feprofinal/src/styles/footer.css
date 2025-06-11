@@ -1,5 +1,5 @@
 .custom-footer {
-  background-color: #8a5024; /* marrón similar al de la imagen */
+  background-color: #7A5638; 
   color: white;
   display: flex;
   justify-content: space-around;
@@ -7,6 +7,7 @@
   padding: 12px 0;
   font-size: 14px;
   font-family: Arial, sans-serif;
+  opacity: 0.95 ;
 }
 
 .footer-item {

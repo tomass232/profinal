@@ -26,6 +26,7 @@
   text-align: center;
   margin-left: 50%;
   margin-top: 5%;
+  font-family: Arial, sans-serif;
 }
 
 .contenido h1 {
@@ -35,12 +36,13 @@
 }
 
 .contenido button {
-  background-color: #7b4e2f;
+  background-color: #7A5638;
   color: white;
   border: none;
   padding: 10px 25px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  opacity: 0.95 ;
 }
 
 .contenido button:hover {
