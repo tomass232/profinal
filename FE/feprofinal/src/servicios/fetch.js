@@ -25,4 +25,13 @@ const getData = async(endpoint) =>{
     return respuesta;
 
 }
-export { postData, getData };
+const obtenerCampañas = async () => {
+    try {
+        const campañas = await getData('campañas');
+        return campañas;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { postData, getData, obtenerCampañas };
