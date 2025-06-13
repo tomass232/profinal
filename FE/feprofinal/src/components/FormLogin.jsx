@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import "../styles/login.css";
+import { useNavigate } from "react-router-dom";
+import { postData } from "../servicios/fetch"; 
 
 export default function Login() {
-  const [correo, setCorreo] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [mensaje, setMensaje] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [clave, setClave] = useState("");
 
-  const handleSubmit = (e) => {
+   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (correo === "tomas@gmail.com" && contrasena === "mari") {
-      setMensaje("Inicio de sesión exitoso");
-    } else {
-      setMensaje("Correo o contraseña incorrectos.");
+        const objUsuario = {
+      "username": nombre,
+      "password": clave
     }
-  };
+     const respuesta = await postData("/api/login/", objUsuario); 
+      console.log(respuesta);
+     if (respuesta.message) {
+       navigate("/home");
+       console.log(respuesta);
+     }else{ 
+        alert("Usuario o contraseña incorrectos");
+        console.log(respuesta); 
+     }
+    }
+
 
   return (
     <div className="login-container">
@@ -26,23 +38,22 @@ export default function Login() {
         </div>
         <div className="login-form">
           <h2>Inicia sesión</h2>
-          <form onSubmit={handleSubmit}>
-            <label>Email:</label>
+          <form>
+            <label>Nombre usuario:</label>
             <input
-              type="email"
-              value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
+              type="text"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
               required
             />
             <label>Password:</label>
             <input
               type="password"
-              value={contrasena}
-              onChange={(e) => setContrasena(e.target.value)}
+              value={clave}
+              onChange={(e) => setClave(e.target.value)}
               required
             />
-            <button type="submit">Iniciar</button>
-            {mensaje && <p className="mensaje">{mensaje}</p>}
+            <button type="text" onClick={handleSubmit}>Iniciar</button>
           </form>
         </div>
       </div>

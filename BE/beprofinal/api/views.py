@@ -9,6 +9,10 @@ from .models import Recomendaciones
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+
+
 class CrearUsuarioView(APIView):
     def post(self,request):
         username = request.data.get("username")
@@ -22,6 +26,23 @@ class CrearUsuarioView(APIView):
         )
 
         return Response({"exito":"Usuario creado"},status=201)
+
+class IniciarSesionView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        usuario = authenticate(username=username, password=password)
+
+        if usuario is not None:
+            token_refresh = RefreshToken.for_user(usuario)
+            token_access = str(token_refresh.access_token)
+            return Response({
+                'message': 'Usuario logueado con éxito',
+                'token': token_access
+            }, status=200)
+        else:
+            return Response({'error': 'Usuario inválido'}, status=400)
 
 
 class CampanaCrearView(ListCreateAPIView):

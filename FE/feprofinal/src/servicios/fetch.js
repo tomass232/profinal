@@ -9,6 +9,7 @@ const postData = async(endpoint,obj) =>{
         });
         const respuesta = await peticion.json();
         console.log(respuesta);
+        return respuesta;
     } catch (error) {
         console.log(error);
     }
@@ -21,5 +22,7 @@ const getData = async(endpoint) =>{
     } catch (error) {
         console.log(error);
     }
+    return respuesta;
+
 }
 export { postData, getData };

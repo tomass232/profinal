@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Registro from "../pages/Registro";
 import Perfil from "../pages/Perfil";
-import Campaña from "../pages/Inscripcion";
+import Campaña from "../pages/Campaña";
 import Admin from "../pages/Admin";
 import Inscripcion from "../pages/Inscripcion";
 
@@ -19,6 +19,7 @@ function Routing() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/inscripcion" element={<Inscripcion />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/campaña" element={<Campaña />} />
       </Routes>
     </BrowserRouter>
   );

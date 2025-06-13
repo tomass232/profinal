@@ -1,21 +1,36 @@
 import React, { useState } from "react";
+import { postData } from "../servicios/fetch"; 
 import "../styles/Registro.css";
+import { useNavigate } from "react-router-dom";
 
 function FormRegistro() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
+  const [clave, setClave] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    alert("Formulario enviado");
-  };
+    const objUsuario = {
+      "username": nombre,
+      "email": correo,
+      "last_name": apellido,
+      "password": clave
+    }
+
+
+ const respuesta = await postData("/api/crear_usuario/", objUsuario); 
+  console.log(respuesta);
+  navigate("/home");
+}
 
   return (
     <div className="registro-wrapper">
       <div className="registro-formulario">
         <h2>Registrate</h2>
-        <form onSubmit={handleSubmit}>
+        <form>
           <label>Nombre:</label>
           <input 
             type="text"
@@ -33,14 +48,22 @@ function FormRegistro() {
           />
 
           <label>Correo: </label>
-          <input  
+          <input
             type="email"
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
             required
           />
 
-          <button type="submit">{">"}</button>
+            <label>Clave: </label>
+          <input  
+            type="password"
+            value={clave}
+            onChange={(e) => setClave(e.target.value)}
+            required
+          />
+
+          <button onClick={handleSubmit} type="button">{">"}</button>
         </form>
       </div>
 
