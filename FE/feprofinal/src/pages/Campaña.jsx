@@ -13,4 +13,4 @@ function Campaña() {
   )
 }
 
-export default Campaña 
+export default Campaña; 

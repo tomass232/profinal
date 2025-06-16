@@ -17,10 +17,11 @@ function Routing() {
                 <Route path="/" element={<Home />} /> 
                 <Route path="/login" element={<Login />} />
                 <Route path="/registro" element={<Registro />} /> 
-                <Route path="/home" element={<Home />} /> 
+                <Route path="/home" element={<Home />} />  
+
 
                 {/*rutas privadas */}
-                <Route path="/admin" element={<Privada children={<Privada children={<Admin/>}/>} />} />
+                {<Route path="/admin" element={<Privada children={<Privada children={<Admin/>}/>} />} />}
                 <Route path="/campaña" element={<Privada children={<Privada children={<Campaña/>}/>} />} /> 
                 <Route path="/inscripcion" element={<Privada children={<Privada children={<Inscripcion/>}/>} />} /> 
                 <Route path="/perfil" element={<Privada children={<Privada children={<Perfil/>}/>} />} /> 

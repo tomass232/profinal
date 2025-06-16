@@ -1,39 +1,40 @@
-from django.shortcuts import render
-from django.contrib.auth.models import User # para el usuario
-from .serializers import CampanaSerializer # para crear la conexion con la estructura de datos
-from .models import Campanas # para crear la conexion con campanas
-from .serializers import ParticipacionesSerializer 
-from .models import Participaciones 
-from .serializers import RecomendacionesSerializer 
-from .models import Recomendaciones
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.generics import ListCreateAPIView
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from .models import Campanas, Participaciones, Recomendaciones, Usuario
+from .serializers import CampanaSerializer, ParticipacionesSerializer, RecomendacionesSerializer, UsuarioSerializer
 
 class CrearUsuarioView(APIView):
-    def post(self,request):
+    def post(self, request):
         username = request.data.get("username")
         correo = request.data.get("email")
         clave = request.data.get("password")
 
-        User.objects.create_user(
-            username=username,
-            email=correo,
-            password=clave
-        )
+        # Verificar si el usuario ya existe
+        if User.objects.filter(username=username).exists():
+            return Response({"error": "El usuario ya existe"}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({"exito":"Usuario creado"},status=201)
+        usuario_creado = User.objects.create_user(username=username, email=correo, password=clave)
+        # Crear el perfil extendido en el modelo Usuario
+        perfil = Usuario.objects.create(usuario=usuario_creado)
+        return Response({
+            "exito": "Usuario creado",
+            "usuario": UsuarioSerializer(perfil).data
+        }, status=status.HTTP_201_CREATED)
 
 class IniciarSesionView(APIView):
     def post(self, request):
@@ -44,15 +45,14 @@ class IniciarSesionView(APIView):
 
         if usuario is not None:
             token_refresh = RefreshToken.for_user(usuario)
-            token_access = str(token_refresh.access_token)
+            token_access = str(AccessToken.for_user(usuario))
             return Response({
                 'message': 'Usuario logueado con éxito',
                 'token': token_access,
                 'idUsuario': usuario.id 
             }, status=200)
         else:
-            return Response({'error': 'Usuario inválido'}, status=400)
-
+            return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PerfilUsuarioView(APIView):
@@ -76,4 +76,4 @@ class ParticipacionesCrearView(ListCreateAPIView):
 
 class RecomendacionesCrearView(ListCreateAPIView):
     queryset = Recomendaciones.objects.all()
-    serializer_class = RecomendacionesSerializer    
+    serializer_class = RecomendacionesSerializer

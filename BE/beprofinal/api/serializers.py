@@ -1,33 +1,29 @@
-from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import Usuario
-from .models import Campanas
-from .models import Participaciones
-from .models import Recomendaciones
+from django.contrib.auth.models import User
+from .models import Usuario, Campanas, Participaciones, Recomendaciones
 
-
-class CampanaSerializer(ModelSerializer):
+class CampanaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campanas
         fields = "__all__"
 
-class ParticipacionesSerializer(ModelSerializer):
+class ParticipacionesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Participaciones   
-        fields = "__all__"     
+        model = Participaciones
+        fields = "__all__"
 
-
-class RecomendacionesSerializer(ModelSerializer):
+class RecomendacionesSerializer(serializers.ModelSerializer):
     class Meta:
-        model =  Recomendaciones
-        fields = "__all__"             
+        model = Recomendaciones
+        fields = "__all__"
 
-class UsuarioSerializers(ModelSerializer):
-  username= serializers.CharField(source=".user.username", read_only=True)  
-  email= serializers.EmailField(source=".user.email", read_only=True) 
-  date_joined= serializers.DateTimeField(source=".user.date_joined", read_only=True) 
-  user_id= serializers.IntegerField(source=".user.id", read_only=True) 
+class UsuarioSerializer(serializers.ModelSerializer):
+    # Accedemos a los campos del User relacionado a través del atributo 'usuario'
+    username = serializers.CharField(source="usuario.username", read_only=True)
+    email = serializers.EmailField(source="usuario.email", read_only=True)
+    date_joined = serializers.DateTimeField(source="usuario.date_joined", read_only=True)
+    user_id = serializers.IntegerField(source="usuario.id", read_only=True)
 
-  class Meta: 
-      model = Usuario
-      field = ['id','username','email','date_joined', 'user_id']
+    class Meta:
+        model = Usuario
+        fields = ['id', 'username', 'email', 'date_joined', 'user_id']
