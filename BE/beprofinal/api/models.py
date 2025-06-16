@@ -11,16 +11,23 @@ class Campanas(models.Model):
     fecha_campana = models.DateTimeField()
     ubicacion_campana = models.TextField()
 
+    def __str__(self):
+        return self.titulo_campana
+
 class Participaciones(models.Model):
-    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha_inscripcion = models.DateTimeField()
-    campana = models.ForeignKey(Campanas,on_delete=models.CASCADE)
+    campana = models.ForeignKey(Campanas, on_delete=models.CASCADE)
     calificacion = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.usuario.username} en {self.campana.titulo_campana}"
 
-class Recomendaciones(models.Model):    
-    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
-    campana = models.ForeignKey(Campanas,on_delete=models.CASCADE)
+class Recomendaciones(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    campana = models.ForeignKey(Campanas, on_delete=models.CASCADE)
     comentario = models.TextField()
     fecha = models.DateTimeField()
-    
+
+    def __str__(self):
+        return f"Recomendación de {self.usuario.username} para {self.campana.titulo_campana}"
