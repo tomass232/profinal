@@ -11,6 +11,14 @@ from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 class CrearUsuarioView(APIView):
@@ -39,10 +47,23 @@ class IniciarSesionView(APIView):
             token_access = str(token_refresh.access_token)
             return Response({
                 'message': 'Usuario logueado con éxito',
-                'token': token_access
+                'token': token_access,
+                'idUsuario': usuario.id 
             }, status=200)
         else:
             return Response({'error': 'Usuario inválido'}, status=400)
+
+
+
+class PerfilUsuarioView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({
+            "username": request.user.username,
+            "id": request.user.id
+        })
 
 
 class CampanaCrearView(ListCreateAPIView):

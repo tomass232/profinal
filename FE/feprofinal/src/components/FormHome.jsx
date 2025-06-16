@@ -13,7 +13,7 @@ function FormHome() {
         <h1>Únete al cambio. Sé parte de una 
           <br />
           comunidad que transforma realidades</h1>
-          <Link to="/inscripcion">
+          <Link to="/campaña">
           <button>Conocer más</button>
           </Link>
       </div>

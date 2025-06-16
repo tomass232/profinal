@@ -7,25 +7,30 @@ export default function Login() {
   const [nombre, setNombre] = useState("");
   const [clave, setClave] = useState("");
 
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-        const objUsuario = {
+    
+    const objUsuario = {
       "username": nombre,
       "password": clave
-    }
-     const respuesta = await postData("/api/login/", objUsuario); 
-      console.log(respuesta);
-     if (respuesta.message) {
-       navigate("/home");
-       console.log(respuesta);
-     }else{ 
-        alert("Usuario o contraseña incorrectos");
-        console.log(respuesta); 
-     }
-    }
+    };
 
+    const respuesta = await postData("/api/login/", objUsuario); 
+    console.log(respuesta);
+
+    if (respuesta.message) {
+      // ✅ Guardar ID del usuario y token en localStorage
+      localStorage.setItem("usuario", respuesta.idUsuario);
+      localStorage.setItem("token", respuesta.token);
+      
+      navigate("/home");
+    } else { 
+      alert("Usuario o contraseña incorrectos");
+      console.log(respuesta); 
+    }
+  };
 
   return (
     <div className="login-container">
@@ -60,3 +65,6 @@ export default function Login() {
     </div>
   );
 }
+
+
+  

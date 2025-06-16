@@ -5,7 +5,7 @@ import "../styles/navbar.css";
 const Navbar = () => {
   return (
     <footer className="custom-navbar">
-      <Link to="/inscripcion" className="navbar-item">Incríbete!</Link>
+      <Link to="/campaña" className="navbar-item">Mira las campañas!</Link>
       <Link to="/home" className="navbar-item">Home</Link>
       <Link to="/registro" className="navbar-item">Regístrate!</Link>
     </footer>

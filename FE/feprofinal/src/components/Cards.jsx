@@ -1,19 +1,26 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import '../styles/cards.css'; 
 
-function Cards() {
+function Cards({ data }) {
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
+    <div className="cards-container">
+      {data.map((campaña, index) => (
+        <Card className="card" key={index}>
+          <Card.Img
+            className="card-img"
+            variant="top"
+            src={campaña.imagen || 'https://via.placeholder.com/300x200'} 
+          />
+          <Card.Body className="card-body">
+            <Card.Text>
+              {campaña.descripcion}
+            </Card.Text>
+            <Button className="card-btn">Inscríbete</Button>
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
   );
 }
 
