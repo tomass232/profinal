@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPIView
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
@@ -69,6 +69,16 @@ class PerfilUsuarioView(APIView):
 class CampanaCrearView(ListCreateAPIView):
     queryset = Campanas.objects.all()
     serializer_class = CampanaSerializer
+
+class CampanaDeleteView(DestroyAPIView):
+    queryset = Campanas.objects.all()
+    serializer_class = CampanaSerializer
+    lookup_field = 'id'
+
+class CampanaUpdateView(UpdateAPIView):
+    queryset = Campanas.objects.all()
+    serializer_class = CampanaSerializer
+    lookup_field = 'id'
 
 class ParticipacionesCrearView(ListCreateAPIView):
     queryset = Participaciones.objects.all()

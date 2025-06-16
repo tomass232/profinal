@@ -20,7 +20,7 @@ function FormRegistro() {
     };
 
     try {
-      const respuesta = await postData("/crear_usuario/", objUsuario); 
+      const respuesta = await postData("api/crear_usuario/", objUsuario); 
       console.log("Respuesta:", respuesta);
       navigate("/home");
     } catch (error) {

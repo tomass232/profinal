@@ -13,8 +13,13 @@ function Cards({ data }) {
             src={campaña.imagen || 'https://via.placeholder.com/300x200'} 
           />
           <Card.Body className="card-body">
+             <Card.Text>
+              {campaña.titulo_campana}
+            </Card.Text>
             <Card.Text>
-              {campaña.descripcion}
+              {campaña.descripcion_campana}
+              {campaña.fecha_campana}
+              {campaña.ubicacion_campana}
             </Card.Text>
             <Button className="card-btn">Inscríbete</Button>
           </Card.Body>

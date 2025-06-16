@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { obtenerCampañas } from '../servicios/fetch';
 import { getData } from '../servicios/fetch';
 import Cards from '../components/Cards.jsx';
 
