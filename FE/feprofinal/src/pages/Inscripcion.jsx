@@ -9,4 +9,4 @@ const Inscripcion = () => {
   )
 }
 
-export default Inscripcion
+export default Inscripcion;

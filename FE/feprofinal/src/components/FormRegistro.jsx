@@ -11,20 +11,22 @@ function FormRegistro() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const objUsuario = {
-      "username": nombre,
-      "email": correo,
-      "last_name": apellido,
-      "password": clave
+      username: nombre,
+      email: correo,
+      password: clave
+    };
+
+    try {
+      const respuesta = await postData("/crear_usuario/", objUsuario); 
+      console.log("Respuesta:", respuesta);
+      navigate("/home");
+    } catch (error) {
+      console.error("Error registrando el usuario:", error);
     }
-
-
- const respuesta = await postData("/api/crear_usuario/", objUsuario); 
-  console.log(respuesta);
-  navigate("/home");
-}
+  };
 
   return (
     <div className="registro-wrapper">
@@ -39,7 +41,7 @@ function FormRegistro() {
             required
           />
 
-          <label>Apellido: </label>
+          <label>Apellido:</label>
           <input
             type="text"
             value={apellido}
@@ -47,7 +49,7 @@ function FormRegistro() {
             required
           />
 
-          <label>Correo: </label>
+          <label>Correo:</label>
           <input
             type="email"
             value={correo}
@@ -55,7 +57,7 @@ function FormRegistro() {
             required
           />
 
-            <label>Clave: </label>
+          <label>Clave:</label>
           <input  
             type="password"
             value={clave}

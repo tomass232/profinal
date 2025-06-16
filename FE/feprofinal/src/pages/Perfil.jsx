@@ -6,4 +6,4 @@ const Perfil = () => {
   )
 }
 
-export default Perfil
+export default Perfil;

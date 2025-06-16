@@ -1,37 +1,85 @@
-const postData = async(endpoint,obj) =>{
-    try {
-        const peticion = await fetch(`http://localhost:8000/${endpoint}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(obj)
-        });
-        const respuesta = await peticion.json();
-        console.log(respuesta);
-        return respuesta;
-    } catch (error) {
-        console.log(error);
-    }
-}
-const getData = async(endpoint) =>{
-    try {
-        const peticion = await fetch(`http://localhost:8000/${endpoint}`);
-        const respuesta = await peticion.json();
-        return respuesta;
-    } catch (error) {
-        console.log(error);
-    }
-    return respuesta;
+const API_BASE_URL = "http://localhost:8000"; // Cambia esta URL según la ubicación de tu backend
 
-}
-const obtenerCampañas = async () => {
-    try {
-        const campañas = await getData('campañas');
-        return campañas;
-    } catch (error) {
-        console.log(error);
+/**
+ * Función para hacer peticiones POST.
+ * @param {string} endpoint 
+ * @param {object} data 
+ * @returns {Promise<object>} 
+ */
+export const postData = async (endpoint, data) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+      throw new Error(`Error en postData: ${response.statusText}`);
     }
-}
+    return await response.json();
+  } catch (error) {
+    console.error("Error en postData:", error);
+    throw error;
+  }
+};
 
-export { postData, getData, obtenerCampañas };
+/**
+ * Función para hacer peticiones GET.
+ * @param {string} endpoint - El endpoint de la API.
+ * @returns {Promise<object>} - La respuesta en formato JSON.
+ */
+export const getData = async (endpoint) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`);
+    if (!response.ok) {
+      throw new Error(`Error en getData: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error en getData:", error);
+    throw error;
+  }
+};
+
+/**
+ * Función para hacer peticiones PUT (para actualizar recursos).
+ * @param {string} endpoint 
+ * @param {object} data 
+ * @returns {Promise<object>} 
+ */
+export const putData = async (endpoint, data) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    if (!response.ok) {
+      throw new Error(`Error en putData: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error en putData:", error);
+    throw error;
+  }
+};
+
+/**
+ * Función para hacer peticiones DELETE.
+ * @param {string} endpoint 
+ * @returns {Promise<object>} 
+ */
+export const deleteData = async (endpoint) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: "DELETE"
+    });
+    if (!response.ok) {
+      throw new Error(`Error en deleteData: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error en deleteData:", error);
+    throw error;
+  }
+};
