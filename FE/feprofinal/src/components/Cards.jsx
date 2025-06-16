@@ -1,8 +1,20 @@
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import '../styles/cards.css'; 
+import '../styles/cards.css';
 
 function Cards({ data }) {
+
+  const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+
+  const handleInscripcion = (id) => {
+
+
+    setSelectedCampaignId(id);
+
+    console.log("Campaña seleccionada:", id);
+  };
+
   return (
     <div className="cards-container">
       {data.map((campaña, index) => (
@@ -10,10 +22,10 @@ function Cards({ data }) {
           <Card.Img
             className="card-img"
             variant="top"
-            src={campaña.imagen || 'https://via.placeholder.com/300x200'} 
+            src={campaña.imagen || 'https://via.placeholder.com/300x200'}
           />
           <Card.Body className="card-body">
-             <Card.Text>
+            <Card.Text>
               {campaña.titulo_campana}
             </Card.Text>
             <Card.Text>
@@ -21,7 +33,11 @@ function Cards({ data }) {
               {campaña.fecha_campana}
               {campaña.ubicacion_campana}
             </Card.Text>
-            <Button className="card-btn">Inscríbete</Button>
+            <Button
+              className="card-btn"
+              onClick={() => handleInscripcion(campaña.id)}>
+              Inscríbete
+            </Button>
           </Card.Body>
         </Card>
       ))}
@@ -30,3 +46,4 @@ function Cards({ data }) {
 }
 
 export default Cards;
+

@@ -72,7 +72,7 @@ body {
 
 .form-container input[type="email"]:focus,
 .form-container input[type="password"]:focus {
-  border-bottom: 2px solid #28a745;
+  border-bottom: 2px solid #00b7ff;
 }
 
 .radio-group {
@@ -89,7 +89,7 @@ body {
 }
 
 
-/* Botón animado y sus interacciones */
+
 .animated-button {
   position: relative;
   display: flex;
@@ -102,11 +102,11 @@ body {
   background-color: black;
   color: white;
   border: none;
-  border-radius: 12px; /* Esquinas redondeadas, forma rectangular */
-  opacity: 1; /* Visible desde el inicio */
+  border-radius: 100px; 
+  opacity: 1;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
   width: 160px;    /* Ancho amplio */
-  height: 40px;    /* Altura reducida */
+  height: 40px;   
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,7 +126,7 @@ body {
 }
 
 .animated-button:hover .arr-1 {
-  right: -25%;
+  right: -2%;
 }
 
 .animated-button:hover .arr-2 {
@@ -147,8 +147,7 @@ body {
 }
 
 .animated-button:hover .circle {
-  width: 150px;
-  height: 150px;
+  width: 15px;
+  height: 15px;
   opacity: 1;
 }
-  
