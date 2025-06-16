@@ -5,13 +5,6 @@ import Cards from '../components/Cards.jsx';
 function Campaña() {
   const [campañas, setCampañas] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getData('api/crear_campana');
-      setCampañas(data);
-    };
-    fetchData();
-  }, []);
 
   return (
     <div>

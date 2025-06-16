@@ -6,6 +6,7 @@ import AggCampania from '../components/AggCampania'
 import { getData } from '../servicios/fetch'
 import Cards from '../components/Cards'
 
+
 function Campaña() {
   const [campanias,setCampanaias] = useState([])
 

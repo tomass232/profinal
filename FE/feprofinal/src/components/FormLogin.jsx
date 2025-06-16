@@ -21,7 +21,6 @@ export default function Login() {
     console.log(respuesta);
 
     if (respuesta.message) {
-      // ✅ Guardar ID del usuario y token en localStorage
       localStorage.setItem("usuario", respuesta.idUsuario);
       localStorage.setItem("token", respuesta.token);
       
@@ -67,4 +66,3 @@ export default function Login() {
 }
 
 
-  
