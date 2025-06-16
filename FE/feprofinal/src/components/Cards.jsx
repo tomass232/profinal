@@ -1,18 +1,19 @@
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import '../styles/cards.css'; 
-import { useNavigate } from 'react-router-dom';
-import { deleteData } from '../servicios/fetch';
-import {putData} from '../servicios/fetch';
-function Cards({ data }) {
-  const navigate = useNavigate()
+import '../styles/cards.css';
 
-  const eliminarCampana = async (id) =>{
-    const peticio = await deleteData(`api/eliminar_campana/${id}/`);
-    console.log(peticio);
-    
-  }
+function Cards({ data }) {
+
+  const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+
+  const handleInscripcion = (id) => {
+
+
+    setSelectedCampaignId(id);
+
+    console.log("Campaña seleccionada:", id);
+  };
 
   return (
     <div className="cards-container">
@@ -21,10 +22,10 @@ function Cards({ data }) {
           <Card.Img
             className="card-img"
             variant="top"
-            src={campaña.imagen || 'https://via.placeholder.com/300x200'} 
+            src={campaña.imagen || 'https://via.placeholder.com/300x200'}
           />
           <Card.Body className="card-body">
-             <Card.Text>
+            <Card.Text>
               {campaña.titulo_campana}
             </Card.Text>
             <Card.Text>
@@ -34,7 +35,11 @@ function Cards({ data }) {
             </Card.Text>
             <Button className="card-btn" >Inscríbete</Button>
             <Button className="card-btn" onClick={()=>eliminarCampana(campaña.id)} >Eliminar</Button>
-
+            <Button
+              className="card-btn"
+              onClick={() => handleInscripcion(campaña.id)}>
+              Inscríbete
+            </Button>
           </Card.Body>
         </Card>
       ))}
@@ -43,3 +48,4 @@ function Cards({ data }) {
 }
 
 export default Cards;
+

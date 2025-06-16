@@ -18,7 +18,7 @@ class RecomendacionesSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class UsuarioSerializer(serializers.ModelSerializer):
-    # Accedemos a los campos del User relacionado a través del atributo 'usuario'
+    
     username = serializers.CharField(source="usuario.username", read_only=True)
     email = serializers.EmailField(source="usuario.email", read_only=True)
     date_joined = serializers.DateTimeField(source="usuario.date_joined", read_only=True)
