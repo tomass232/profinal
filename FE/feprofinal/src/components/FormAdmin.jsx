@@ -1,56 +1,189 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import '../styles/admin.css';
 
-const FormAdmin = () => {
+function FormAdmin() {
+  const [usuariosInscritos, setUsuariosInscritos] = useState([]);
+  const [solicitudesInscripcion, setSolicitudesInscripcion] = useState([]);
+
+
+  const BASE_URL = 'http://localhost:8000';
+
+  useEffect(() => {
+   
+    fetch(`${BASE_URL}/api/mostrar_usuarios/`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error al cargar usuarios');
+        }
+        return response.json();
+      })
+      .then((data) => {
+      
+        setUsuariosInscritos(data);
+      })
+      .catch((error) => console.error('Error:', error));
+
+    
+    fetch(`${BASE_URL}/api/mostrar_participaciones/`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error al cargar solicitudes de inscripción');
+        }
+        return response.json();
+      })
+      .then((data) => {
+       
+        setSolicitudesInscripcion(data);
+      })
+      .catch((error) => console.error('Error:', error));
+  }, []);
+
+  
+  const handleEditar = (id, isSolicitud = false) => {
+    console.log('Editar', isSolicitud ? 'solicitud' : 'usuario', 'con id:', id);
+   
+  };
+
+
+  const handleEliminar = (id, isSolicitud = false) => {
+    
+    const url = isSolicitud
+      ? `${BASE_URL}/api/mostrar_participaciones/${id}/`
+      : `${BASE_URL}/api/Participaciones/${id}/`;
+    fetch(url, { method: 'DELETE' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Error al eliminar el registro');
+        }
+        
+        if (isSolicitud) {
+          setSolicitudesInscripcion((prev) => prev.filter((item) => item.id !== id));
+        } else {
+          setUsuariosInscritos((prev) => prev.filter((user) => user.id !== id));
+        }
+      })
+      .catch((error) => console.error('Error eliminando registro:', error));
+  };
+
   return (
-    <div className="admin-container">
-      <nav className="admin-nav">
-        <div className="logo">AdminPanel</div>
-        <div className="nav-links">
-          <a href="#">Dashboard</a>
-          <a href="#">My List</a>
-          
-        </div>
-      </nav>
+    <Container fluid className="admin-container">
+      <Row className="admin-header">
+        <Col>
+          <h1>Panel de Administración</h1>
+        </Col>
+      </Row>
 
-      <div className="admin-content">
-        <h1 className="admin-title">Dashboard</h1>
-        <p className="admin-subtitle">Refine your search</p>
+      {}
+      <Row className="mb-4">
+        <Col>
+          <Card className="admin-card full-width-card">
+            <Card.Header className="admin-card-header">
+              Usuarios inscritos
+            </Card.Header>
+            <Card.Body className="admin-card-body">
+              {usuariosInscritos.length > 0 ? (
+                <Table className="admin-table" responsive>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Correo</th>
+                      <th>Fecha de inscripción</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usuariosInscritos.map((user) => (
+                      <tr key={user.id}>
+                        <td>{user.id}</td>
+                        <td>{user.username}</td>
+                        <td>{user.email}</td>
+                        {}
+                        <td>{new Date(user.date_joined).toLocaleString()}</td>
+                        <td className="td-actions">
+                          <button
+                            className="btoneditar"
+                            onClick={() => handleEditar(user.id)}
+                          >
+                            Editar
+                          </button>
+                          <button
+                            className="btoneliminar"
+                            onClick={() => handleEliminar(user.id)}
+                          >
+                            Eliminar
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              ) : (
+                <p className="admin-message">No hay usuarios inscritos.</p>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
 
-        <div className="search-section">
-          <h3 className="search-title">Business Details</h3>
-          <p className="search-description">Search for the person</p>
-
-          <div className="search-filters">
-            <label>Name</label>
-            <input type="text" placeholder="Enter name" className="search-input" />
-
-            <label>Category</label>
-            <select className="search-select">
-              <option value="">Select category</option>
-              <option value="finance">Limpieza de parques</option>
-              <option value="technology">Mantenimiento de calles</option>
-              <option value="health"></option>
-            </select>
-
-            <label>Location</label>
-            <input type="text" placeholder="Enter location" className="search-input" />
-
-            <button class="btn">Apply</button>
-          </div>
-        </div>
-
-        <div className="admin-body">
-          <div className="admin-results">
-            <a href="#">450 results found</a>
-          </div>
-        </div>
-      </div>
-    </div>
+      {}
+      <Row>
+        <Col>
+          <Card className="admin-card full-width-card">
+            <Card.Header className="admin-card-header">
+              Solicitudes de inscripción
+            </Card.Header>
+            <Card.Body className="admin-card-body">
+              {solicitudesInscripcion.length > 0 ? (
+                <Table className="admin-table" responsive>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nombre</th>
+                      <th>Correo</th>
+                      {}
+                      <th>Fecha de solicitud</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {solicitudesInscripcion.map((item) => (
+                      <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.username}</td>
+                        <td>{item.email}</td>
+                        <td>{new Date(item.date_joined).toLocaleString()}</td>
+                        <td className="td-actions">
+                          <button
+                            className="btoneditar"
+                            onClick={() => handleEditar(item.id, true)}
+                          >
+                            Editar
+                          </button>
+                          <button
+                            className="btoneliminar"
+                            onClick={() => handleEliminar(item.id, true)}
+                          >
+                            Eliminar
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              ) : (
+                <p className="admin-message">
+                  No hay solicitudes de inscripción.
+                </p>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
-};
+}
 
 export default FormAdmin;
-
-
 

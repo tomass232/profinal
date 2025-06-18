@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import '../styles/cards.css';
@@ -6,13 +7,17 @@ import '../styles/cards.css';
 function Cards({ data }) {
 
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+  const navigate = useNavigate();
 
   const handleInscripcion = (id) => {
-
-
     setSelectedCampaignId(id);
-
     console.log("Campaña seleccionada:", id);
+
+   
+    localStorage.setItem('selectedCampaign', id);
+
+    
+    navigate('/inscripcion');
   };
 
   return (
@@ -46,4 +51,3 @@ function Cards({ data }) {
 }
 
 export default Cards;
-

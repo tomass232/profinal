@@ -1,181 +1,115 @@
-.body {
+
+
+.admin-container {
+  background-color: #f8f9fa;  
+  padding: 2rem;
+  min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.admin-container {
-  background-color: #ffffff;
-  min-height: 100vh;
-  padding: 20px;
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.admin-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #001aff;
-  padding: 43px 150px;
-  color: rgb(235, 235, 235);
-}
-
-.admin-nav .logo {
+.admin-header h1 {
+  font-size: 2.5rem;
+  color: #333;
   font-weight: bold;
-  font-size: 18px;
+  margin: 0;
 }
 
-.admin-nav .nav-links a {
-  color: rgb(255, 255, 255);
-  margin-left: 30px;
-  text-decoration: none;
-  font-size: 20px;
-  transition: opacity 0.3s;
- 
-}
 
-.admin-nav .nav-links a:hover {
-  opacity: 0.8;
-}
-
-.admin-content {
-  padding: 40px;
-}
-
-.admin-title {
-  font-size: 32px;
-  color: #666262;
-  margin-bottom: 10px;
-}
-
-.admin-subtitle {
-  font-size: 18px;
-  color: #777;
-  margin-bottom: 30px;
-}
-
-.search-section {
+.full-width-card {
   width: 100%;
-  max-width: 400px;
-  background-color: rgba(230, 228, 228, 0.747);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.08);
 }
 
-.search-title {
-  color: #0033cc;
-  font-size: 22px;
-  margin-bottom: 10px;
-}
-
-.search-description {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 20px;
-}
-
-.search-filters {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.search-input, .search-select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  transition: border-color 0.3s;
-}
-
-
-.btn {
-  position: relative;
-  font-size: 17px;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 1em 2.5em;
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 6em;
-  transition: all 0.2s;
+.admin-card {
   border: none;
-  font-family: inherit;
-  font-weight: 500;
-  color: black;
-  background-color: white;
-}
-
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.btn::after {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  width: 100%;
-  border-radius: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: all 0.4s;
-}
-
-.btn::after {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  margin-bottom: 1.5rem;
 }
 
-.btn:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0;
+.admin-card-header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 1rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.admin-card-body {
+  padding: 1rem;
+}
+
+.admin-table {
+  width: 100%;
+  border: 1px solid #dee2e6;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th, 
+.admin-table td {
+  padding: 0.75rem;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.admin-table thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.admin-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 
-.admin-body {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.td-actions {
+  white-space: nowrap;
 }
 
-.admin-results {
-  width: 48%;
-  margin-top: 25px;
-  font-size: 22px;
-  color: #0066cc;
-  text-align: right;
-  width: 48%;
+.btoneditar {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
 }
 
-.admin-results a {
-  text-decoration: underline;
-  color: #007bff;
-  font-weight: 500;
+.btoneditar:hover {
+  background-color: #218838;
 }
 
-@media (max-width: 768px) {
-  .search-section {
-    width: 100%;
-  }
+.btoneliminar {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+}
 
-  .admin-body {
-    flex-direction: column;
-    gap: 20px;
-  }
+.btoneliminar:hover {
+  background-color: #c82333;
+}
 
-  .admin-form, .admin-results {
-    width: 100%;
-  }
-
-  .admin-results {
-    width: 100%;
-    text-align: left;
-  }
+.admin-message {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+  padding: 1rem 0;
 }
 

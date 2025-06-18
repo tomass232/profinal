@@ -1,6 +1,8 @@
 import React from "react";
 import "../styles/Home.css";
 import { Link  } from "react-router-dom";
+
+
 function FormHome() {
   return (
     <div className="home">
@@ -18,7 +20,11 @@ function FormHome() {
           </Link>
       </div>
     </div>
+
+    
   );
 }
+
+
 
 export default FormHome;

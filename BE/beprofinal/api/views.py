@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPIView
+from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPIView,ListAPIView
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
@@ -87,3 +87,12 @@ class ParticipacionesCrearView(ListCreateAPIView):
 class RecomendacionesCrearView(ListCreateAPIView):
     queryset = Recomendaciones.objects.all()
     serializer_class = RecomendacionesSerializer
+
+class MostrarUsuariosView(ListAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+
+class MostrarParticipacionesView(ListAPIView):
+    queryset = Participaciones.objects.all()
+    serializer_class = ParticipacionesSerializer
+    

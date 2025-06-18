@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 import AggCampania from '../components/AggCampania'
 import { getData } from '../servicios/fetch'
 import Cards from '../components/Cards'
-
+import "../styles/campanias.css"
 function Campaña() {
   const [campanias,setCampanaias] = useState([])
 
@@ -22,8 +22,9 @@ function Campaña() {
       <Navbar />
       <FormCampaña />
 
-      <Cards data={campanias} />
-
+      <div className='cont-camps'>
+        <Cards data={campanias} />
+      </div>
       <AggCampania/>
       <Footer />
     </>

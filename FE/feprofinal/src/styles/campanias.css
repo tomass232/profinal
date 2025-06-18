@@ -1,0 +1,8 @@
+.cont-camps{
+    display: flex;
+    flex-direction: row;
+   margin: 1%, 2%;
+    grid-auto-flow: column;
+
+
+}
