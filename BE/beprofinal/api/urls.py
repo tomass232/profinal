@@ -7,6 +7,8 @@ from .views import (
     IniciarSesionView,
     CampanaDeleteView,
     CampanaUpdateView,
+    MostrarUsuariosView,
+   MostrarParticipacionesView
 )
 
 urlpatterns = [
@@ -17,5 +19,8 @@ urlpatterns = [
     path('login/', IniciarSesionView.as_view(), name="iniciar_sesion"),
     path('eliminar_campana/<int:id>/', CampanaDeleteView.as_view(), name='eliminar_campana'),
     path('actualizar_campana/<int:id>/', CampanaUpdateView.as_view(), name='actualizar_campana'),
+    path('mostrar_usuarios/',MostrarUsuariosView.as_view()),
+     path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
+   
 ]
 

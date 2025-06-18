@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Usuario(models.Model):
     usuario = models.OneToOneField(User,on_delete=models.CASCADE)
 
+
 class Campanas(models.Model):
     titulo_campana = models.CharField(max_length=100)
     descripcion_campana = models.TextField() # la diferencia entre este y el CharField es la limitación de carácteres

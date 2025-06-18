@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import {Link} from 'react-router-dom';
+=======
+ import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+>>>>>>> 3cfb6c405c392efcc3cb213c7068827065adf7fe
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -9,7 +14,9 @@ import { deleteData, putData } from '../servicios/fetch';
 function Cards({ data }) {
 
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
+  const navigate = useNavigate();
 
+<<<<<<< HEAD
   const [nuevoTitulo, setNuevoTitulo] = useState('');
   const [nuevaDescripcion, setNuevaDescripcion] = useState('');
   const [nuevaFecha, setNuevaFecha] = useState('');
@@ -24,6 +31,17 @@ function Cards({ data }) {
     };
     const respuesta = await putData(`api/actualizar_campana/${id}/`, objEditado);
     console.log("Respuesta de editar campaña:", respuesta);
+=======
+  const handleInscripcion = (id) => {
+    setSelectedCampaignId(id);
+    console.log("Campaña seleccionada:", id);
+
+   
+    localStorage.setItem('selectedCampaign', id);
+
+    
+    navigate('/inscripcion');
+>>>>>>> 3cfb6c405c392efcc3cb213c7068827065adf7fe
   };
 
   const eliminarCampana = async (id) => {
@@ -111,4 +129,3 @@ function Cards({ data }) {
 }
 
 export default Cards;
-

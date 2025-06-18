@@ -1,14 +1,7 @@
 /* inscripcion.css */
 @import url('https://image.freepik.com/foto-gratis/voluntarios-plano-completo-trabajando-juntos_23-2149181982.jpg');
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  font-family: 'Roboto', sans-serif;
-}
+
 
 /* Fondo de pantalla completo con imagen */
 .background {

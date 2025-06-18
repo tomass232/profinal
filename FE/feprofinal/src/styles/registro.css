@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
+=======
+>>>>>>> 3cfb6c405c392efcc3cb213c7068827065adf7fe
 .registro-wrapper {
   display: flex;
   height: 100vh;

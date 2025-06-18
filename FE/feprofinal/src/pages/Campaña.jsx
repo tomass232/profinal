@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar'
 import AggCampania from '../components/AggCampania'
 import { getData } from '../servicios/fetch'
 import Cards from '../components/Cards'
+import "../styles/campanias.css"
 
 
 function Campaña() {
@@ -21,16 +22,14 @@ function Campaña() {
 
   return (
     <>
-    <Navbar />
-    <div className="contenido-campanas">
-      <div className="lado-formulario">
-        <AggCampania />
-      </div>
-      <div className="lado-cards">
+      <Navbar />
+      <FormCampaña />
+
+      <div className='cont-camps'>
         <Cards data={campanias} />
       </div>
-    </div>
-    <Footer />
+      <AggCampania/>
+      <Footer />
     </>
   );
 }
