@@ -38,6 +38,8 @@ function Cards({ data }) {
               {campaña.fecha_campana}
               {campaña.ubicacion_campana}
             </Card.Text>
+            <Button className="card-btn" >Inscríbete</Button>
+            <Button className="card-btn" onClick={()=>eliminarCampana(campaña.id)} >Eliminar</Button>
             <Button
               className="card-btn"
               onClick={() => handleInscripcion(campaña.id)}>

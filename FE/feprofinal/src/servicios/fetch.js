@@ -1,5 +1,4 @@
-const API_BASE_URL = "http://localhost:8000/"; // Cambia esta URL según la ubicación de tu backend
-
+const API_BASE_URL = "http://localhost:8000/"; 
 export const postData = async (endpoint, data) => {
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -53,12 +52,14 @@ export const putData = async (endpoint, data) => {
 export const deleteData = async (endpoint) => {
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-      method: "DELETE"
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
     });
     if (!response.ok) {
       throw new Error(`Error en deleteData: ${response.statusText}`);
     }
-    return await response.json();
+    const responseData = await response.json();
+    return responseData;
   } catch (error) {
     console.error("Error en deleteData:", error);
     throw error;
