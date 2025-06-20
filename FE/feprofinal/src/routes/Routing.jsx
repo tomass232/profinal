@@ -7,6 +7,7 @@ import Perfil from "../pages/Perfil";
 import Campaña from "../pages/Campaña";
 import Admin from "../pages/Admin";
 import Inscripcion from "../pages/Inscripcion";
+import Contacto from "../pages/Contacto";
 
 function Routing() {
     return (
@@ -18,6 +19,7 @@ function Routing() {
                 <Route path="/registro" element={<Registro />} /> 
                 <Route path="/home" element={<Home />} /> 
                 <Route path="/inscripcion" element={<Inscripcion />} />
+                <Route path="/contacto" element={<Contacto />} />
                 {/*rutas privadas */}
                 {<Route path="/admin" element={<Privada children={<Privada children={<Admin/>}/>} />} />}
                 <Route path="/campaña" element={<Privada children={<Privada children={<Campaña/>}/>} />} /> 

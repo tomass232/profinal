@@ -55,19 +55,17 @@ function Cards() {
     <div className="cards-container">
       {data.map((campaña, index) => (
         <Card className="card" key={index}>
-          <Card.Img
-            className="card-img"
-            variant="top"
-            src={campaña.imagen || 'https://via.placeholder.com/300x200'}
-          />
           <Card.Body className="card-body">
             <Card.Text>
               {campaña.titulo_campana}
             </Card.Text>
             <Card.Text>
               {campaña.descripcion_campana}
+              <br />
               {campaña.fecha_campana}
+              <br />
               {campaña.ubicacion_campana}
+              <br />
             </Card.Text>
             <Link to="/inscripcion">
             <Button className="card-btn" >Inscríbete</Button>

@@ -8,7 +8,7 @@ from .views import (
     CampanaDeleteView,
     CampanaUpdateView,
     MostrarUsuariosView,
-   MostrarParticipacionesView
+   MostrarParticipacionesView,
 )
 
 urlpatterns = [
@@ -21,6 +21,5 @@ urlpatterns = [
     path('actualizar_campana/<int:id>/', CampanaUpdateView.as_view(), name='actualizar_campana'),
     path('mostrar_usuarios/',MostrarUsuariosView.as_view()),
      path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
-   
 ]
 
