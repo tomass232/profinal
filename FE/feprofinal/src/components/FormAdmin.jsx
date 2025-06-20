@@ -10,7 +10,6 @@ function FormAdmin() {
   const BASE_URL = 'http://localhost:8000';
 
   useEffect(() => {
-   
     fetch(`${BASE_URL}/api/mostrar_usuarios/`)
       .then((response) => {
         if (!response.ok) {
@@ -25,7 +24,7 @@ function FormAdmin() {
       .catch((error) => console.error('Error:', error));
 
     
-    fetch(`${BASE_URL}/api/mostrar_participaciones/`)
+    fetch(`${BASE_URL}/api/crear_participaciones/`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Error al cargar solicitudes de inscripción');
@@ -45,12 +44,14 @@ function FormAdmin() {
    
   };
 
+  
 
+  
   const handleEliminar = (id, isSolicitud = false) => {
     
     const url = isSolicitud
-      ? `${BASE_URL}/api/mostrar_participaciones/${id}/`
-      : `${BASE_URL}/api/Participaciones/${id}/`;
+      ? `${BASE_URL}/api/mostrar_usuarios/${id}/`
+      : `${BASE_URL}/api/eliminar_usuario/${id}/`;
     fetch(url, { method: 'DELETE' })
       .then((response) => {
         if (!response.ok) {

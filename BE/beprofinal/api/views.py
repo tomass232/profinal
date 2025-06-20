@@ -103,3 +103,11 @@ class MostrarParticipacionesView(ListAPIView):
     serializer_class = ParticipacionesSerializer
     
 
+class UsuarioDeleteView(DestroyAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+    lookup_field = 'id'
+class ParticipacionesDeleteView(DestroyAPIView):
+    queryset = Participaciones.objects.all()
+    serializer_class = ParticipacionesSerializer
+    lookup_field = 'id'
