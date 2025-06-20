@@ -8,7 +8,9 @@ from .views import (
     CampanaDeleteView,
     CampanaUpdateView,
     MostrarUsuariosView,
-   MostrarParticipacionesView
+   MostrarParticipacionesView,
+    UsuarioDeleteView,
+    ParticipacionesDeleteView
 )
 
 urlpatterns = [
@@ -20,7 +22,9 @@ urlpatterns = [
     path('eliminar_campana/<int:id>/', CampanaDeleteView.as_view(), name='eliminar_campana'),
     path('actualizar_campana/<int:id>/', CampanaUpdateView.as_view(), name='actualizar_campana'),
     path('mostrar_usuarios/',MostrarUsuariosView.as_view()),
-     path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
+    path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
+    path('eliminar_usuario/<int:id>/', UsuarioDeleteView.as_view (), name='eliminar_usuario'),
+    path('eliminar_participaciones/<int:id>/', ParticipacionesDeleteView.as_view (), name='eliminar_participaciones')
    
 ]
 
