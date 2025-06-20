@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .card {
@@ -58,6 +59,7 @@
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, Helvetica, sans-serif;  
 }
 
 .form-crear-campaña h5 {
@@ -121,6 +123,23 @@
 
 .btn-crear:hover {
   background-color: #c0c0c0;
+}
+.contenido-campanas {
+  display: flex;
+  gap: 40px;
+  padding: 40px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.lado-formulario {
+  flex: 1;
+  max-width: 400px;
+}
+
+.lado-cards {
+  flex: 2;
 }
 .contenido-campanas {
   display: flex;

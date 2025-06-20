@@ -1,22 +1,17 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
-=======
- import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
->>>>>>> 3cfb6c405c392efcc3cb213c7068827065adf7fe
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import '../styles/cards.css';
-import { deleteData, putData } from '../servicios/fetch';
+import { deleteData, putData,getData } from '../servicios/fetch';
 
-function Cards({ data }) {
+function Cards() {
 
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
   const navigate = useNavigate();
-
-<<<<<<< HEAD
+  const [data, setData] = useState([])
   const [nuevoTitulo, setNuevoTitulo] = useState('');
   const [nuevaDescripcion, setNuevaDescripcion] = useState('');
   const [nuevaFecha, setNuevaFecha] = useState('');
@@ -31,7 +26,6 @@ function Cards({ data }) {
     };
     const respuesta = await putData(`api/actualizar_campana/${id}/`, objEditado);
     console.log("Respuesta de editar campaña:", respuesta);
-=======
   const handleInscripcion = (id) => {
     setSelectedCampaignId(id);
     console.log("Campaña seleccionada:", id);
@@ -41,14 +35,22 @@ function Cards({ data }) {
 
     
     navigate('/inscripcion');
->>>>>>> 3cfb6c405c392efcc3cb213c7068827065adf7fe
   };
+  }
 
   const eliminarCampana = async (id) => {
     const peticion = await deleteData(`api/eliminar_campana/${id}/`);
     console.log("Respuesta de eliminar campaña:", peticion);
   }
-
+  useEffect(() => {
+    console.log("Componente Cards montado");
+    const traeCampanas = async () => {
+      const peticion = await getData('api/crear_campana/');
+      console.log("Datos de campañas:", peticion);
+      setData(peticion);
+    }
+    traeCampanas();
+  }, []);
   return (
     <div className="cards-container">
       {data.map((campaña, index) => (
@@ -128,4 +130,4 @@ function Cards({ data }) {
   );
 }
 
-export default Cards;
+export default Cards

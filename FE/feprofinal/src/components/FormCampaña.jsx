@@ -10,7 +10,6 @@ function Campaña() {
   return (
     <div>
       <AggCampania />
-      <Cards data={campañas} />
     </div>
   );  
 }
