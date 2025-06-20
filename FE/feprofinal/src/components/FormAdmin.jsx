@@ -6,7 +6,6 @@ function FormAdmin() {
   const [usuariosInscritos, setUsuariosInscritos] = useState([]);
   const [solicitudesInscripcion, setSolicitudesInscripcion] = useState([]);
 
-
   const BASE_URL = 'http://localhost:8000';
 
   useEffect(() => {
@@ -18,12 +17,10 @@ function FormAdmin() {
         return response.json();
       })
       .then((data) => {
-      
         setUsuariosInscritos(data);
       })
       .catch((error) => console.error('Error:', error));
 
-    
     fetch(`${BASE_URL}/api/crear_participaciones/`)
       .then((response) => {
         if (!response.ok) {
@@ -32,39 +29,35 @@ function FormAdmin() {
         return response.json();
       })
       .then((data) => {
-       
         setSolicitudesInscripcion(data);
       })
       .catch((error) => console.error('Error:', error));
   }, []);
 
-  
   const handleEditar = (id, isSolicitud = false) => {
     console.log('Editar', isSolicitud ? 'solicitud' : 'usuario', 'con id:', id);
-   
+    // Aquí puedes implementar la lógica para editar
   };
 
-  
-
-  
-  const handleEliminar = (id, isSolicitud = false) => {
-    
+  const handleEliminar = async (id, isSolicitud = false) => {
     const url = isSolicitud
       ? `${BASE_URL}/api/mostrar_usuarios/${id}/`
       : `${BASE_URL}/api/eliminar_usuario/${id}/`;
-    fetch(url, { method: 'DELETE' })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error al eliminar el registro');
-        }
-        
-        if (isSolicitud) {
-          setSolicitudesInscripcion((prev) => prev.filter((item) => item.id !== id));
-        } else {
-          setUsuariosInscritos((prev) => prev.filter((user) => user.id !== id));
-        }
-      })
-      .catch((error) => console.error('Error eliminando registro:', error));
+
+    try {
+      const response = await fetch(url, { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Error al eliminar el registro');
+      }
+
+      if (isSolicitud) {
+        setSolicitudesInscripcion((prev) => prev.filter((item) => item.id !== id));
+      } else {
+        setUsuariosInscritos((prev) => prev.filter((user) => user.id !== id));
+      }
+    } catch (error) {
+      console.error('Error eliminando registro:', error);
+    }
   };
 
   return (
@@ -75,13 +68,10 @@ function FormAdmin() {
         </Col>
       </Row>
 
-      {}
       <Row className="mb-4">
         <Col>
           <Card className="admin-card full-width-card">
-            <Card.Header className="admin-card-header">
-              Usuarios inscritos
-            </Card.Header>
+            <Card.Header className="admin-card-header">Usuarios inscritos</Card.Header>
             <Card.Body className="admin-card-body">
               {usuariosInscritos.length > 0 ? (
                 <Table className="admin-table" responsive>
@@ -100,7 +90,6 @@ function FormAdmin() {
                         <td>{user.id}</td>
                         <td>{user.username}</td>
                         <td>{user.email}</td>
-                        {}
                         <td>{new Date(user.date_joined).toLocaleString()}</td>
                         <td className="td-actions">
                           <button
@@ -128,13 +117,10 @@ function FormAdmin() {
         </Col>
       </Row>
 
-      {}
       <Row>
         <Col>
           <Card className="admin-card full-width-card">
-            <Card.Header className="admin-card-header">
-              Solicitudes de inscripción
-            </Card.Header>
+            <Card.Header className="admin-card-header">Solicitudes de inscripción</Card.Header>
             <Card.Body className="admin-card-body">
               {solicitudesInscripcion.length > 0 ? (
                 <Table className="admin-table" responsive>
@@ -143,7 +129,6 @@ function FormAdmin() {
                       <th>ID</th>
                       <th>Nombre</th>
                       <th>Correo</th>
-                      {}
                       <th>Fecha de solicitud</th>
                       <th>Acciones</th>
                     </tr>
@@ -174,9 +159,7 @@ function FormAdmin() {
                   </tbody>
                 </Table>
               ) : (
-                <p className="admin-message">
-                  No hay solicitudes de inscripción.
-                </p>
+                <p className="admin-message">No hay solicitudes de inscripción.</p>
               )}
             </Card.Body>
           </Card>
@@ -187,4 +170,3 @@ function FormAdmin() {
 }
 
 export default FormAdmin;
-
