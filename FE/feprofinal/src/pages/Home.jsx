@@ -12,8 +12,8 @@ function Home() {
         <FormHome />
       </div>
       <div className="footer-contenedor">
-        <Footer />
         <BotonComponente/>
+        <Footer />
       </div>
       <div className="navbar-contenedor">
         <Navbar />

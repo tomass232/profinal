@@ -4,7 +4,7 @@ const peticion = await fetch("http://localhost:8000/api/perfil/", {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`  // ¡Esto es lo importante!
+    "Authorization": `Bearer ${token}`  
   }
 });
 
