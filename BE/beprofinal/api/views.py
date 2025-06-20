@@ -4,19 +4,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPIView,ListAPIView
-from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto
+from .serializers import CampanaSerializer, ParticipacionesSerializer, RecomendacionesSerializer, UsuarioSerializer, MensajeContactoSerializer
 
-from .models import Campanas, Participaciones, Recomendaciones, Usuario
-from .serializers import CampanaSerializer, ParticipacionesSerializer, RecomendacionesSerializer, UsuarioSerializer
 
 class CrearUsuarioView(APIView):
     def post(self, request):
@@ -24,12 +17,12 @@ class CrearUsuarioView(APIView):
         correo = request.data.get("email")
         clave = request.data.get("password")
 
-        # Verificar si el usuario ya existe
+        # verifica si el usuario ya existe
         if User.objects.filter(username=username).exists():
             return Response({"error": "El usuario ya existe"}, status=status.HTTP_400_BAD_REQUEST)
 
         usuario_creado = User.objects.create_user(username=username, email=correo, password=clave)
-        # Crear el perfil extendido en el modelo Usuario
+        # crea el perfil extendido en el modelo Usuario
         perfil = Usuario.objects.create(usuario=usuario_creado)
         return Response({
             "exito": "Usuario creado",
@@ -65,6 +58,19 @@ class PerfilUsuarioView(APIView):
             "id": request.user.id
         })
 
+class ContactoAPIView(APIView):
+    def get(self, request):
+        mensajes = MensajeContacto.objects.all().order_by('-fecha')
+        serializer = MensajeContactoSerializer(mensajes, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = MensajeContactoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"mensaje": "Mensaje enviado con éxito"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class CampanaCrearView(ListCreateAPIView):
     queryset = Campanas.objects.all()
@@ -96,6 +102,7 @@ class MostrarParticipacionesView(ListAPIView):
     queryset = Participaciones.objects.all()
     serializer_class = ParticipacionesSerializer
     
+
 class UsuarioDeleteView(DestroyAPIView):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
