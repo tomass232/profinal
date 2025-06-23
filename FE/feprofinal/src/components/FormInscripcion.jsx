@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import "../styles/inscripcion.css";
+import { Form } from "react-router-dom";
 
-const VolunteerForm = () => {
+const FormInscripcion = () => {
+  // estado para guardar los datos del formulario
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     disponible: "",
   });
-/*hacer la que la fecha de la campaña sea en inscripcion*/
+
+  // actualiza el estado cuando se escribe o cambia algún input
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     setFormData({
@@ -16,9 +19,10 @@ const VolunteerForm = () => {
     });
   };
 
+  // cuando se envía el formulario
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Formulario enviado:", formData);
+    e.preventDefault(); // evita que se recargue la página
+    console.log("Formulario enviado:", formData); // por ahora solo imprimo los datos
   };
 
   return (
@@ -30,6 +34,7 @@ const VolunteerForm = () => {
             Completa los siguientes datos para confirmar tu inscripción:
           </p>
 
+          {/* input para email */}
           <label htmlFor="email">Usuario:</label>
           <input
             type="email"
@@ -41,6 +46,7 @@ const VolunteerForm = () => {
             required
           />
 
+          {/* input para contraseña */}
           <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
@@ -52,6 +58,7 @@ const VolunteerForm = () => {
             required
           />
 
+          {/* pregunta para saber si está disponible */}
           <p>¿Aceptas estar disponible para participar el 20 de julio de 2025?</p>
           <div className="radio-group">
             <label>
@@ -79,6 +86,7 @@ const VolunteerForm = () => {
             </label>
           </div>
 
+          {/* botón para enviar el formulario con diseño SVG */}
           <button class="animated-button">
             <svg xmlns="http://www.w3.org/2000/svg" class="arr-2" viewBox="0 0 24 24">
               <path
@@ -94,11 +102,10 @@ const VolunteerForm = () => {
             </svg>
           </button>
 
-
         </form>
       </div>
     </div>
   );
 };
 
-export default VolunteerForm;
+export default FormInscripcion;

@@ -8,7 +8,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 15px 40px;
+  padding: 15px 50px;
   font-size: 18px;
   font-weight: 600;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,7 +20,7 @@
 .navbar-item {
   padding: 15px 14.3%;
   text-align: center;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.4s ease, opacity 0.3s ease;
   border-radius: 8px;
   position: relative;
   right: 7%;

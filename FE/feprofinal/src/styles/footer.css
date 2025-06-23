@@ -1,15 +1,15 @@
 .custom-footer {
   background-color: #7A5638; 
-  color: white;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 12px 0;
-  font-size: 14px;
   font-family: Arial, sans-serif;
+  color: white;
+  font-size: 14px;
   opacity: 0.95 ;
 }
-
+  
 .footer-item {
   text-align: center;
   flex: 1;
