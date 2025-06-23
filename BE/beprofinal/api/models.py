@@ -20,7 +20,7 @@ class Campanas(models.Model):
     titulo_campana = models.CharField(max_length=100)
     descripcion_campana = models.TextField() # la diferencia entre este y el CharField es la limitación de carácteres
     fecha_campana = models.DateTimeField()
-    ubicacion_campana = models.TextField()
+    ubicacion_campana = models.TextField() #dtos campa
     
     def __str__(self):
         return self.titulo_campana

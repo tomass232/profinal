@@ -7,7 +7,7 @@ const VolunteerForm = () => {
     password: "",
     disponible: "",
   });
-
+/*hacer la que la fecha de la campaña sea en inscripcion*/
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     setFormData({

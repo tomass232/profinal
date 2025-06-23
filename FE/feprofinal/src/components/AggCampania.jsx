@@ -7,7 +7,7 @@ const AggCampania = () => {
   const [descripcion_campana, setDescripcionCampana] = useState("")
   const [fecha_campana, setFechaCampana] = useState("")
   const [ubicacion_campana, setUbicacionCampana] = useState("")
-
+/*estruc*/
   const enviarCampana = async (e) => {
     e.preventDefault()
     const objCampana = {

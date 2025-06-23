@@ -51,7 +51,7 @@ function PerfilUsuario() {
             usuario.nombre
           )}
         </p>
-
+# recordatorio
         {editando ? (
           <button className="perfil-btn" onClick={guardarCambios}>
             Guardar
