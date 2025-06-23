@@ -28,6 +28,10 @@ function FormAdmin() {
       .catch((error) => console.error('Error:', error));
 
     // traer solicitudes de inscripción
+        setUsuariosInscritos(data);
+      })
+      .catch((error) => console.error('Error:', error));
+
     fetch(`${BASE_URL}/api/crear_participaciones/`)
       .then((response) => {
         if (!response.ok) {
@@ -37,6 +41,7 @@ function FormAdmin() {
       })
       .then((data) => {
         setSolicitudesInscripcion(data); // guardo las solicitudes en el estado
+        setSolicitudesInscripcion(data);
       })
       .catch((error) => console.error('Error:', error));
   }, []);
@@ -49,6 +54,12 @@ function FormAdmin() {
   // función para eliminar tanto usuarios como solicitudes
   const handleEliminar = (id, isSolicitud = false) => {
     // si es solicitud uso una ruta, si es usuario otra
+  const handleEditar = (id, isSolicitud = false) => {
+    console.log('Editar', isSolicitud ? 'solicitud' : 'usuario', 'con id:', id);
+    // Aquí puedes implementar la lógica para editar
+  };
+
+  const handleEliminar = async (id, isSolicitud = false) => {
     const url = isSolicitud
       ? `${BASE_URL}/api/mostrar_usuarios/${id}/`
       : `${BASE_URL}/api/eliminar_usuario/${id}/`;
@@ -66,6 +77,20 @@ function FormAdmin() {
         }
       })
       .catch((error) => console.error('Error eliminando registro:', error));
+    try {
+      const response = await fetch(url, { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Error al eliminar el registro');
+      }
+
+      if (isSolicitud) {
+        setSolicitudesInscripcion((prev) => prev.filter((item) => item.id !== id));
+      } else {
+        setUsuariosInscritos((prev) => prev.filter((user) => user.id !== id));
+      }
+    } catch (error) {
+      console.error('Error eliminando registro:', error);
+    }
   };
 
   return (
@@ -80,9 +105,7 @@ function FormAdmin() {
       <Row className="mb-4">
         <Col>
           <Card className="admin-card full-width-card">
-            <Card.Header className="admin-card-header">
-              Usuarios inscritos
-            </Card.Header>
+            <Card.Header className="admin-card-header">Usuarios inscritos</Card.Header>
             <Card.Body className="admin-card-body">
               {usuariosInscritos.length > 0 ? (
                 <Table className="admin-table" responsive>
@@ -132,9 +155,7 @@ function FormAdmin() {
       <Row>
         <Col>
           <Card className="admin-card full-width-card">
-            <Card.Header className="admin-card-header">
-              Solicitudes de inscripción
-            </Card.Header>
+            <Card.Header className="admin-card-header">Solicitudes de inscripción</Card.Header>
             <Card.Body className="admin-card-body">
               {solicitudesInscripcion.length > 0 ? (
                 <Table className="admin-table" responsive>
@@ -173,9 +194,7 @@ function FormAdmin() {
                   </tbody>
                 </Table>
               ) : (
-                <p className="admin-message">
-                  No hay solicitudes de inscripción.
-                </p>
+                <p className="admin-message">No hay solicitudes de inscripción.</p>
               )}
             </Card.Body>
           </Card>
@@ -186,4 +205,3 @@ function FormAdmin() {
 }
 
 export default FormAdmin;
-
