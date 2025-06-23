@@ -6,9 +6,33 @@ from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPIView,ListAPIView
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto
 from .serializers import CampanaSerializer, ParticipacionesSerializer, RecomendacionesSerializer, UsuarioSerializer, MensajeContactoSerializer
+
+class PermisoAcceso(BasePermission):
+    def has_permission(self, request, view):
+        usuario = request.user
+        if not usuario.is_authenticated:
+            return False
+        
+        grupos_permisos = usuario.groups.values_list('name', flat=True)
+        metodo = request.method
+
+        if 'staff' in grupos_permisos:
+            if metodo in SAFE_METHODS or metodo in ["POST","PUT","PATCH","DELETE"]:
+                return True
+            return False
+        
+        if 'usuarios' in grupos_permisos: 
+            if metodo in SAFE_METHODS:
+                return True
+            return False
+        
+        if 'admin' in grupos_permisos:
+            return True
+        return False
 
 
 class CrearUsuarioView(APIView):
@@ -49,7 +73,6 @@ class IniciarSesionView(APIView):
 
 
 class PerfilUsuarioView(APIView):
-    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -73,24 +96,29 @@ class ContactoAPIView(APIView):
 
 
 class CampanaCrearView(ListCreateAPIView):
+    # permission_classes = [PermisoAcceso]
     queryset = Campanas.objects.all()
     serializer_class = CampanaSerializer
 
 class CampanaDeleteView(DestroyAPIView):
+    # permission_classes = [PermisoAcceso]
     queryset = Campanas.objects.all()
     serializer_class = CampanaSerializer
     lookup_field = 'id'
 
 class CampanaUpdateView(UpdateAPIView):
+    # permission_classes = [PermisoAcceso]
     queryset = Campanas.objects.all()
     serializer_class = CampanaSerializer
     lookup_field = 'id'
 
 class ParticipacionesCrearView(ListCreateAPIView):
+    # permission_classes = [PermisoAcceso]
     queryset = Participaciones.objects.all()
     serializer_class = ParticipacionesSerializer
 
 class RecomendacionesCrearView(ListCreateAPIView):
+    # permission_classes = [PermisoAcceso]          
     queryset = Recomendaciones.objects.all()
     serializer_class = RecomendacionesSerializer
 

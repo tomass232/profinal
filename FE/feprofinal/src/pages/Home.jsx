@@ -12,7 +12,7 @@ function Home() {
         <FormHome />
       </div>
       <div className="footer-contenedor">
-        <BotonComponente/>
+        <BotonComponente />
         <Footer />
       </div>
       <div className="navbar-contenedor">

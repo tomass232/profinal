@@ -1,6 +1,14 @@
+.pagina-contacto {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+}
+
 .contacto-container {
-  max-width: 500px;
-  margin: 40px auto;
+  max-width: 400px;
+  margin: 70px auto;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -15,9 +23,9 @@
 
 .contacto-formulario input,
 .contacto-formulario textarea {
-  width: 100%;
+  width: 95%;
   padding: 12px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 16px;
@@ -38,3 +46,4 @@
 .contacto-formulario button:hover {
   background-color: #828782;
 }
+
