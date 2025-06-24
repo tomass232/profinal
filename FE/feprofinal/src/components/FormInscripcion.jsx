@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "../styles/inscripcion.css";
-
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const FormInscripcion = () => {
+  // obtiene los datos pasados desde el botón "Inscribirse"
+  const location = useLocation();
+  const navigate = useNavigate();
+  const fechaCampaña = location.state?.fechaCampaña;
+  const tituloCampaña = location.state?.tituloCampaña;
+  const idCampaña = location.state?.idCampaña;
+
+  // estado para guardar los datos del formulario
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -54,6 +63,24 @@ const FormInscripcion = () => {
     }).then(() => {
       setFormData({ email: "", password: "", disponible: "" });
     });
+  // cuando se envía el formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // evita que se recargue la página
+    console.log("Formulario enviado:", formData);
+
+    const idUsuario = localStorage.getItem("idUsuario"); // hay que guardar esto al iniciar sesión
+    const fechaInscripcion = new Date().toISOString();
+
+    // objeto a enviar al backend
+    const datosInscripcion = {
+      usuario: idUsuario,
+      campana: idCampaña,
+      fecha_inscripcion: fechaInscripcion,
+      calificacion: 0, 
+    };
+
+    const respuesta = await postData("api/crear_participaciones/", datosInscripcion);
+    console.log("Participación enviada:", respuesta);
 
   };
 
@@ -85,6 +112,19 @@ const FormInscripcion = () => {
           />
 
           <p>¿Aceptás estar disponible para participar el 20 de julio de 2025?</p>
+          {/* pregunta personalizada con nombre y fecha */}
+          <p>
+            ¿Aceptas participar en la campaña{" "}
+            <strong>{tituloCampaña || "seleccionada"}</strong> el{" "}
+            <strong>
+              {fechaCampaña
+                ? new Date(fechaCampaña).toLocaleDateString()
+                : "una fecha próxima"}
+            </strong>
+            ?
+          </p>
+
+          {/* selección de disponibilidad */}
           <div className="radio-group">
             <label>
               <input
@@ -96,7 +136,6 @@ const FormInscripcion = () => {
               />{" "}
               Sí
             </label>
-
             <label>
               <input
                 type="radio"
@@ -109,20 +148,14 @@ const FormInscripcion = () => {
             </label>
           </div>
 
-          <button className="animated-button" type="submit">
-            <svg xmlns="http://www.w3.org/2000/svg" className="arr-2" viewBox="0 0 24 24">
-              <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z" />
-            </svg>
+          {/* botón para enviar */}
+          <button className="animated-button">
             <span className="text">Confirmar inscripción</span>
-            <span className="circle"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="arr-1" viewBox="0 0 24 24">
-              <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z" />
-            </svg>
           </button>
         </form>
       </div>
     </div>
   );
 };
-
+}
 export default FormInscripcion;

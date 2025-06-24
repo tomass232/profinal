@@ -180,13 +180,13 @@ function FormAdmin() {
                             className="btoneditar"
                             onClick={() => handleEditar(item.id, true)}
                           >
-                            Editar
+                            Aceptar
                           </button>
                           <button
                             className="btoneliminar"
                             onClick={() => handleEliminar(item.id, true)}
                           >
-                            Eliminar
+                            
                           </button>
                         </td>
                       </tr>

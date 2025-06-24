@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -13,12 +12,23 @@ function Cards() {
   const [selectedCampaignId, setSelectedCampaignId] = useState(null);
   const navigate = useNavigate(); // para navegar a otra ruta programáticamente
   const [data, setData] = useState([]) // estado para guardar la lista de campañas
+
   // estados para los nuevos valores al editar una campaña
   const [nuevoTitulo, setNuevoTitulo] = useState('');
   const [nuevaDescripcion, setNuevaDescripcion] = useState('');
   const [nuevaFecha, setNuevaFecha] = useState('');
   const [nuevaHora, setNuevaHora] = useState('');
   const [nuevaUbicacion, setNuevaUbicacion] = useState('');
+
+  // función para redirigir al formulario con los datos de la campaña
+  const handleInscribirse = (campaña) => {
+    navigate('/inscripcion', {
+      state: {
+        fechaCampaña: campaña.fecha_campana,
+        tituloCampaña: campaña.titulo_campana
+      }
+    });
+  };
 
   // función para editar campaña haciendo PUT al backend
   const editarCampana = async (id) => {
@@ -31,16 +41,6 @@ function Cards() {
     };
     const respuesta = await putData(`api/actualizar_campana/${id}/`, objEditado);
     console.log("Respuesta de editar campaña:", respuesta);
-
-    // esta función está dentro de editarCampana, parece un error pero no la toco
-    const handleInscripcion = (id) => {
-      setSelectedCampaignId(id);
-      console.log("Campaña seleccionada:", id);
-
-      localStorage.setItem('selectedCampaign', id);
-
-      navigate('/inscripcion');
-    };
   }
 
   // función para eliminar campaña haciendo DELETE al backend
@@ -79,12 +79,13 @@ function Cards() {
               {campaña.ubicacion_campana}
               <br />
             </Card.Text>
-            {/* botón para ir a inscripción */}
-            <Link to="/inscripcion">
-              <Button className="card-btn" >Inscríbete</Button>
-            </Link>
+
+            {/* botón para ir a inscripción con los datos de la campaña */}
+            <Button className="card-btn" onClick={() => handleInscribirse(campaña)}>Inscríbete</Button>
+
             {/* botón para eliminar campaña */}
             <Button className="card-btn" onClick={() => eliminarCampana(campaña.id)} >Eliminar</Button>
+
             {/* botón para mostrar formulario de edición */}
             <Button className="card-btn" onClick={() => setSelectedCampaignId(campaña.id)}>Editar</Button>
 
@@ -155,4 +156,4 @@ function Cards() {
   );
 }
 
-export default Cards
+export default Cards;

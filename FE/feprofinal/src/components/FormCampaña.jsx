@@ -5,7 +5,7 @@ import AggCampania from '../components/AggCampania';
 function Campaña() {
   const [campañas, setCampañas] = useState([]);
 
- 
+ /*campana edit disfunct*/
   return (
     <div>
       <AggCampania />
