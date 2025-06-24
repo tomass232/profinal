@@ -44,7 +44,7 @@ function FormAdmin() {
         setSolicitudesInscripcion(data);
       })
       .catch((error) => console.error('Error:', error));
-  }, []);
+  } [];
 
   // función para editar, por ahora solo imprime el id y si es solicitud o usuario
   const handleEditar = (id, isSolicitud = false) => {
