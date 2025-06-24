@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getData, putData } from "../servicios/fetch";
+import { getPerfil, actualizarPerfil } from "../servicios/fetch_perfil";
 
 function PerfilUsuario() {
   // estado para guardar los datos del usuario
@@ -13,23 +13,26 @@ function PerfilUsuario() {
 
   // cuando el componente se monta, traigo los datos del perfil
   useEffect(() => {
-    getData("/perfil") 
+    getPerfil()
       .then((data) => {
         setUsuario(data); // guardo los datos del usuario
         setNuevoNombre(data.nombre); // pongo el nombre actual para editar
       })
-      .catch((error) => console.error(error)); // muestro error si falla
+      .catch((error) => console.error("Error al obtener perfil:", error)); // muestro error si falla
   }, []);
 
   // función para guardar los cambios en el nombre
   const guardarCambios = () => {
-    putData("/perfil", { nombre: nuevoNombre }) // mando la actualización
+    actualizarPerfil(nuevoNombre)
       .then((actualizado) => {
-        setUsuario(actualizado); // actualizo el estado con la nueva info
+        setUsuario((prev) => ({
+          ...prev,
+          nombre: actualizado.nombre
+        }));
         setEditando(false); // salgo del modo edición
         setMensaje("Nombre actualizado correctamente."); // muestro mensaje
       })
-      .catch((error) => console.error(error)); // muestro error si falla
+      .catch((error) => console.error("Error al actualizar perfil:", error)); // muestro error si falla
   };
 
   // función para cerrar sesión borrando el token
@@ -61,7 +64,7 @@ function PerfilUsuario() {
             usuario.nombre
           )}
         </p>
-# recordatorio
+
         {editando ? (
           // botón para guardar cambios si está editando
           <button className="perfil-btn" onClick={guardarCambios}>

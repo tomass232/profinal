@@ -1,18 +1,23 @@
-import { useState } from "react"
-import { postData } from "../servicios/fetch"
-import '../styles/cards.css'
+// src/components/AggCampania.jsx
+import { useState } from "react";
+import { postData } from "../servicios/fetch";
+import { useNavigate } from "react-router-dom";
+import "../styles/cards.css";
 
 const AggCampania = () => {
+  const navigate = useNavigate();
+
   // Estados para guardar los valores que el usuario escriba en el formulario
-  const [titulo_campana, setTituloCampana] = useState("")
-  const [descripcion_campana, setDescripcionCampana] = useState("")
-  const [fecha_campana, setFechaCampana] = useState("")
-  const [hora_campana, setHoraCampana] = useState("")
-  const [ubicacion_campana, setUbicacionCampana] = useState("")
+  const [titulo_campana, setTituloCampana] = useState("");
+  const [descripcion_campana, setDescripcionCampana] = useState("");
+  const [fecha_campana, setFechaCampana] = useState("");
+  const [hora_campana, setHoraCampana] = useState("");
+  const [ubicacion_campana, setUbicacionCampana] = useState("");
 
   // función que se ejecuta al enviar el formulario
   const enviarCampana = async (e) => {
-    e.preventDefault() // previene que se recargue la página
+    e.preventDefault(); // previene que se recargue la página
+
     // objeto con los datos que voy a enviar
     const objCampana = {
       titulo_campana,
@@ -20,11 +25,22 @@ const AggCampania = () => {
       fecha_campana,
       hora_campana,
       ubicacion_campana
-    }
+    };
+
     // mando los datos al backend usando postData
-    const peticion = await postData('api/crear_campana/', objCampana)
-    console.log(peticion) // para revisar si se envió correctamente
-  }
+    const respuesta = await postData("api/crear_campana/", objCampana);
+
+    console.log("Respuesta del backend:", respuesta); // para revisar si se envió correctamente
+
+    // redirige al formulario de inscripción si se recibió una fecha válida
+    if (respuesta && respuesta.fecha_campana) {
+      navigate("/inscripcion", {
+        state: { fechaCampaña: respuesta.fecha_campana }
+      });
+    } else {
+      console.error("No se recibió fecha_campana en la respuesta:", respuesta);
+    }
+  };
 
   return (
     // formulario para crear una nueva campaña
@@ -70,9 +86,11 @@ const AggCampania = () => {
       />
 
       {/* botón para enviar el formulario */}
-      <button type="submit" className="btn-crear">Crear campaña</button>
+      <button type="submit" className="btn-crear">
+        Crear campaña
+      </button>
     </form>
-  )
-}
+  );
+};
 
-export default AggCampania
+export default AggCampania;
