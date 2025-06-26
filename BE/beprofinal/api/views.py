@@ -7,7 +7,6 @@ from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPI
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-from rest_framework.decorators import api_view, permission_classes
 from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto
 from .serializers import (
     CampanaSerializer,
@@ -17,30 +16,25 @@ from .serializers import (
     MensajeContactoSerializer
 )
 
+#  Permisos personalizados
 class PermisoAcceso(BasePermission):
     def has_permission(self, request, view):
         usuario = request.user
         if not usuario.is_authenticated:
             return False
-        
+
         grupos_permisos = usuario.groups.values_list('name', flat=True)
         metodo = request.method
 
         if 'staff' in grupos_permisos:
-            if metodo in SAFE_METHODS or metodo in ["POST","PUT","PATCH","DELETE"]:
-                return True
-            return False
-
+            return metodo in SAFE_METHODS or metodo in ["POST", "PUT", "PATCH", "DELETE"]
         if 'usuarios' in grupos_permisos:
-            if metodo in SAFE_METHODS:
-                return True
-            return False
-        
+            return metodo in SAFE_METHODS
         if 'admin' in grupos_permisos:
             return True
         return False
 
-
+#  Registro de usuario
 class CrearUsuarioView(APIView):
     def post(self, request):
         username = request.data.get("username")
@@ -79,12 +73,36 @@ class IniciarSesionView(APIView):
             return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(["GET", "PUT"])
-@permission_classes([IsAuthenticated])
-def PerfilUsuarioView(request):
-    user = request.user
+class CrearParticipacionView(APIView):
+    def post(self, request):
+        try:
+            usuario_id = request.data.get("usuario")
+            campana_id = request.data.get("campana")
+            fecha = request.data.get("fecha_inscripcion")
+            calificacion = request.data.get("calificacion")
 
-    if request.method == "GET":
+            # evita duplicados
+            if Participaciones.objects.filter(usuario_id=usuario_id, campana_id=campana_id).exists():
+                return Response({"mensaje": "Ya estás inscrito en esta campaña"}, status=200)
+
+            # crea la participación
+            Participaciones.objects.create(
+                usuario_id=usuario_id,
+                campana_id=campana_id,
+                fecha_inscripcion=fecha,
+                calificacion=calificacion
+            )
+
+            return Response({"mensaje": "Inscripción guardada con éxito"}, status=201)
+        except Exception as e:
+            return Response({"error": str(e)}, status=400)
+
+#  Perfil del usuario (ver y actualizar)
+class PerfilUsuarioView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
         datos_perfil = {
             "correo": user.email,
             "nombre": user.username,
@@ -98,7 +116,8 @@ def PerfilUsuarioView(request):
         }
         return Response(datos_perfil)
 
-    if request.method == "PUT":
+    def put(self, request):
+        user = request.user
         nuevo_nombre = request.data.get("nombre")
         if nuevo_nombre:
             user.username = nuevo_nombre
@@ -141,32 +160,33 @@ class CampanaUpdateView(UpdateAPIView):
     serializer_class = CampanaSerializer
     lookup_field = 'id'
 
+#  Participaciones
 class ParticipacionesCrearView(ListCreateAPIView):
     # permission_classes = [PermisoAcceso]
     queryset = Participaciones.objects.all()
     serializer_class = ParticipacionesSerializer
 
-class RecomendacionesCrearView(ListCreateAPIView):
-    # permission_classes = [PermisoAcceso]          
-    queryset = Recomendaciones.objects.all()
-    serializer_class = RecomendacionesSerializer
-
-class MostrarUsuariosView(ListAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-
 class MostrarParticipacionesView(ListAPIView):
     queryset = Participaciones.objects.all()
     serializer_class = ParticipacionesSerializer
-    
-
-class UsuarioDeleteView(DestroyAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-    lookup_field = 'id'
 
 class ParticipacionesDeleteView(DestroyAPIView):
     queryset = Participaciones.objects.all()
     serializer_class = ParticipacionesSerializer
     lookup_field = 'id'
 
+# ⭐ Recomendaciones
+class RecomendacionesCrearView(ListCreateAPIView):
+    # permission_classes = [PermisoAcceso]          
+    queryset = Recomendaciones.objects.all()
+    serializer_class = RecomendacionesSerializer
+
+# 👥 Usuarios
+class MostrarUsuariosView(ListAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+
+class UsuarioDeleteView(DestroyAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+    lookup_field = 'id'
