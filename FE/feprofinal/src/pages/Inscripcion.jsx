@@ -13,5 +13,4 @@ const Inscripcion = () => {
     </div>
   )
 }
-/*bap*/
 export default Inscripcion;

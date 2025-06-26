@@ -1,0 +1,40 @@
+.form-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input, textarea {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px;
+  border: none;
+  background-color: #949494;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #818181;
+}

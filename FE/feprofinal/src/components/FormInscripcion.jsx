@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import "../styles/inscripcion.css";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+
+
 const FormInscripcion = () => {
   // obtiene los datos pasados desde el botón "Inscribirse"
   const location = useLocation();
@@ -53,7 +55,6 @@ const FormInscripcion = () => {
       return;
     }
 
-    console.log("Formulario enviado:", formData);
 
     Swal.fire({
       title: "¡Inscripción confirmada!",
@@ -83,6 +84,7 @@ const FormInscripcion = () => {
     console.log("Participación enviada:", respuesta);
 
   };
+  }
 
   return (
     <div className="background">
@@ -121,7 +123,6 @@ const FormInscripcion = () => {
                 ? new Date(fechaCampaña).toLocaleDateString()
                 : "una fecha próxima"}
             </strong>
-            ?
           </p>
 
           {/* selección de disponibilidad */}
@@ -156,6 +157,5 @@ const FormInscripcion = () => {
       </div>
     </div>
   );
-};
 }
 export default FormInscripcion;

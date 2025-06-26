@@ -10,6 +10,8 @@ from .views import (
     MostrarUsuariosView,
    MostrarParticipacionesView,
     UsuarioDeleteView,
+    ComunidadListCreateAPIView,
+    ComunidadRetrieveUpdateDestroyAPIView,
     ParticipacionesDeleteView,
     PerfilUsuarioView
 )
@@ -27,6 +29,10 @@ urlpatterns = [
     path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
     path('eliminar_usuario/<int:id>/', UsuarioDeleteView.as_view (), name='eliminar_usuario'),
     path('eliminar_participaciones/<int:id>/', ParticipacionesDeleteView.as_view(), name='eliminar_participaciones'),
+    path("comunidades/", ComunidadListCreateAPIView.as_view(),
+         name="comunidad-list-create"),
+    path("comunidades/<int:pk>/", ComunidadRetrieveUpdateDestroyAPIView.as_view(),
+         name="comunidad-detail"),
     # path('perfil/', PerfilUsuarioView.as_view(), name="perfil"),
 ]
 

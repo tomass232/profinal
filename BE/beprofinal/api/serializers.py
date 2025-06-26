@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Usuario, Campanas, Participaciones, Recomendaciones, MensajeContacto
+from .models import Usuario, Campanas, Participaciones, Recomendaciones, MensajeContacto, Comunidades
 
 class MensajeContactoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,3 +36,27 @@ class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
         fields = ['id', 'username', 'email', 'date_joined', 'user_id',"usuario"]
+
+
+class ComunidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Comunidades
+        fields = "__all__"
+
+
+comunidad = serializers.PrimaryKeyRelatedField(
+    queryset=Comunidades.objects.all(), required=False
+)
+
+
+
+class CampanaSerializer(serializers.ModelSerializer):
+    comunidad = serializers.PrimaryKeyRelatedField(
+        queryset=Comunidades.objects.all(), allow_null=True
+    )
+
+    class Meta:
+        model  = Campanas
+        fields = "__all__"
+
+

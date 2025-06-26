@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
-import { postData } from "../servicios/fetch";
+import { postData, postUser } from "../servicios/fetch";
 import Swal from "sweetalert2";          
 
 export default function Login() {
@@ -28,7 +28,7 @@ export default function Login() {
       password: clave,
     };
 
-    const respuesta = await postData("/api/login/", objUsuario);
+    const respuesta = await postUser("/api/login/", objUsuario);
     console.log(respuesta);
 
     if (respuesta.message) {

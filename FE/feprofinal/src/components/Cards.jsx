@@ -49,7 +49,6 @@ function Cards() {
     console.log("Respuesta de eliminar campaña:", peticion);
   }
 
-  // hook que se ejecuta cuando el componente se monta
   useEffect(() => {
     console.log("Componente Cards montado");
     const traeCampanas = async () => {
@@ -58,7 +57,7 @@ function Cards() {
       setData(peticion); // guardo la lista de campañas en el estado
     }
     traeCampanas();
-  }, []);
+}, []);
 
   return (
     <div className="cards-container">

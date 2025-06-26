@@ -17,7 +17,6 @@ function Campaña() {
       setCampanaias(peticion)
       console.log(campanias);
       console.log(peticion);
-      
     }
     traeCampanas()
   }, []);
@@ -30,7 +29,15 @@ function Campaña() {
       <FormCampaña />
       </div>
       <div className="lado-cards">
-        <Cards data={campanias} />
+        {/* <Cards data={campanias} /> */}
+        <Cards/>
+        {/* {campanias.map((campania)=>{
+          return(
+            <p>{campania.titulo_campana}</p>
+          )
+        })} */}
+
+        
       </div>
     </div>
       <BotonComponente />

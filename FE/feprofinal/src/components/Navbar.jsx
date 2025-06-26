@@ -7,7 +7,7 @@ const Navbar = () => {
     <footer className="custom-navbar">
       <Link to="/campaña" className="navbar-item">Campañas</Link>
       <Link to="/home" className="navbar-item">Home</Link>
-      <Link to="/registro" className="navbar-item">Regístrate!</Link>
+      <Link to="/login" className="navbar-item">Login!</Link>
     </footer>
   );
 };

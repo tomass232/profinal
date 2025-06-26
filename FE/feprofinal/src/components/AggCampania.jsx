@@ -1,18 +1,32 @@
-import { useState } from "react";
-import { postData } from "../servicios/fetch";
-import Swal from "sweetalert2"; // ✅ import SweetAlert2
+import { useState, useEffect } from "react";
+import { postData, getData } from "../servicios/fetch";
+import Swal from "sweetalert2";
 import "../styles/cards.css";
-import { useNavigate } from "react-router-dom"; // ✅ import useNavigate
-// src/components/AggCampania.jsx
+import { useNavigate } from "react-router-dom";
+
 const AggCampania = () => {
   const navigate = useNavigate();
 
-  // Estados para guardar los valores que el usuario escriba en el formulario
   const [titulo_campana, setTituloCampana] = useState("");
   const [descripcion_campana, setDescripcionCampana] = useState("");
   const [fecha_campana, setFechaCampana] = useState("");
   const [hora_campana, setHoraCampana] = useState("");
   const [ubicacion_campana, setUbicacionCampana] = useState("");
+  const [comunidades, setComunidades] = useState([]);
+  const [comunidadSeleccionada, setComunidadSeleccionada] = useState(""); 
+
+  useEffect(() => {
+    const cargarComunidades = async () => {
+      try {
+        const data = await getData("api/comunidades/");
+        setComunidades(data);
+      } catch (error) {
+          console.error("Error al cargar comunidades:", error);
+      }
+    };
+
+    cargarComunidades();
+  }, []);
 
   const enviarCampana = async (e) => {
     e.preventDefault();
@@ -22,7 +36,8 @@ const AggCampania = () => {
       descripcion_campana.trim() === "" ||
       fecha_campana.trim() === "" ||
       hora_campana.trim() === "" ||
-      ubicacion_campana.trim() === ""
+      ubicacion_campana.trim() === "" ||
+      comunidadSeleccionada === ""
     ) {
       Swal.fire({
         title: "Campos incompletos",
@@ -33,22 +48,19 @@ const AggCampania = () => {
       return;
     }
 
-    e.preventDefault(); // previene que se recargue la página
-
-    // objeto con los datos que voy a enviar
     const objCampana = {
       titulo_campana,
       descripcion_campana,
       fecha_campana,
       hora_campana,
       ubicacion_campana,
+      comunidad: comunidadSeleccionada,
     };
 
-    const peticion = await postData("api/crear_campana/", objCampana);
-    console.log(peticion);
+    const respuesta = await postData("api/crear_campana/", objCampana);
+    console.log("Respuesta del backend:", respuesta);
 
-    // 🔔 Alerta de éxito (solo si el backend responde correctamente)
-    if (peticion && peticion.id) {
+    if (respuesta && respuesta.id) {
       Swal.fire({
         title: "¡Campaña creada!",
         text: "La campaña se ha registrado exitosamente.",
@@ -56,25 +68,18 @@ const AggCampania = () => {
         confirmButtonText: "OK",
       });
 
-      // Limpiar campos (opcional)
       setTituloCampana("");
       setDescripcionCampana("");
       setFechaCampana("");
       setHoraCampana("");
       setUbicacionCampana("");
-      ubicacion_campana
-    };
+      setComunidadSeleccionada("");
 
-    // mando los datos al backend usando postData
-    const respuesta = await postData("api/crear_campana/", objCampana);
-
-    console.log("Respuesta del backend:", respuesta); // para revisar si se envió correctamente
-
-    // redirige al formulario de inscripción si se recibió una fecha válida
-    if (respuesta && respuesta.fecha_campana) {
-      navigate("/inscripcion", {
-        state: { fechaCampaña: respuesta.fecha_campana }
-      });
+      if (respuesta.fecha_campana) {
+        navigate("/inscripcion", {
+          state: { fechaCampaña: respuesta.fecha_campana },
+        });
+      }
     } else {
       console.error("No se recibió fecha_campana en la respuesta:", respuesta);
     }
@@ -113,8 +118,36 @@ const AggCampania = () => {
         onChange={(e) => setUbicacionCampana(e.target.value)}
       />
 
-      <button type="submit" className="btn-crear">Crear campaña</button>
-      {/* botón para enviar el formulario */}
+      <select
+        value={comunidadSeleccionada}
+        onChange={(e) => setComunidadSeleccionada(e.target.value)}
+      >
+        <option value="">Seleccione una comunidad</option>
+        {comunidades.map((comunidad) => (
+          <option key={comunidad.id} value={comunidad.id}>
+            {comunidad.nombre}
+          </option>
+        ))}
+        <option value="">San José</option>
+        {comunidades.map((comunidad) => (
+          <option key={comunidad.id} value={comunidad.id}>
+            {comunidad.nombre}
+          </option>
+        ))}
+        <option value="">Monteverde</option>
+        {comunidades.map((comunidad) => (
+          <option key={comunidad.id} value={comunidad.id}>
+            {comunidad.nombre}
+          </option>
+        ))}
+        <option value="">Cartago</option>
+        {comunidades.map((comunidad) => (
+          <option key={comunidad.id} value={comunidad.id}>
+            {comunidad.nombre}
+          </option>
+        ))}
+      </select>
+
       <button type="submit" className="btn-crear">
         Crear campaña
       </button>

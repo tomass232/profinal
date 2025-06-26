@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { postData } from "../servicios/fetch";
+import { postData, postUser } from "../servicios/fetch";
 import Swal from "sweetalert2"; // ✅ SweetAlert2
 import "../styles/Registro.css";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ function FormRegistro() {
     };
 
     try {
-      const respuesta = await postData("api/crear_usuario/", objUsuario);
+      const respuesta = await postUser("api/crear_usuario/", objUsuario);
       console.log("Respuesta:", respuesta);
 
       Swal.fire({
