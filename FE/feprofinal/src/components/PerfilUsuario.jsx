@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getPerfil, actualizarPerfil } from "../servicios/fetch_perfil";
-
+import   "../styles/perfil.css";
 function PerfilUsuario() {
   // estado para guardar los datos del usuario
   const [usuario, setUsuario] = useState(null);
@@ -10,6 +10,8 @@ function PerfilUsuario() {
   const [nuevoNombre, setNuevoNombre] = useState("");
   // estado para mostrar mensajes al usuario
   const [mensaje, setMensaje] = useState("");
+  // estado para previsualizar una nueva imagen
+  const [preview, setPreview] = useState(null);
 
   // cuando el componente se monta, traigo los datos del perfil
   useEffect(() => {
@@ -18,27 +20,37 @@ function PerfilUsuario() {
         setUsuario(data); // guardo los datos del usuario
         setNuevoNombre(data.nombre); // pongo el nombre actual para editar
       })
-      .catch((error) => console.error("Error al obtener perfil:", error)); // muestro error si falla
+      .catch((error) => console.error(error)); // muestro error si falla
   }, []);
 
   // función para guardar los cambios en el nombre
   const guardarCambios = () => {
     actualizarPerfil(nuevoNombre)
       .then((actualizado) => {
-        setUsuario((prev) => ({
-          ...prev,
-          nombre: actualizado.nombre
-        }));
+        setUsuario(actualizado); // actualizo el estado con la nueva info
         setEditando(false); // salgo del modo edición
         setMensaje("Nombre actualizado correctamente."); // muestro mensaje
+        setTimeout(() => setMensaje(""), 3000); // borro mensaje después de unos segundos
       })
-      .catch((error) => console.error("Error al actualizar perfil:", error)); // muestro error si falla
+      .catch((error) => console.error(error)); // muestro error si falla
   };
 
-  // función para cerrar sesión borrando el token
+  // función para cerrar sesión borrando el token 
   const cerrarSesion = () => {
     localStorage.removeItem("token");
     window.location.href = "/login"; // redirijo al login
+  };
+
+  // función para previsualizar la imagen cargada
+  const handleImagen = (e) => {
+    const archivo = e.target.files[0];
+    if (archivo) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result); // almaceno vista previa
+      };
+      reader.readAsDataURL(archivo);
+    }
   };
 
   // si todavía no tengo datos, muestro mensaje de carga
@@ -46,7 +58,21 @@ function PerfilUsuario() {
 
   return (
     <div className="perfil-container">
-      <h2 className="perfil-titulo">Mi Perfil</h2>
+      {/* sección para imagen de perfil */}
+      <div className="perfil-avatar">
+        <img
+          src={usuario.imagen || preview || "/img/perfil-default.png"}
+          alt=""
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImagen}
+          className="input-imagen"
+        />
+      </div>
+
+      <h2 className="perfil-titulo">Foto de perfil</h2>
 
       <div className="perfil-info">
         <p><strong>Correo:</strong> {usuario.correo}</p>
@@ -82,15 +108,24 @@ function PerfilUsuario() {
         <h3>Campañas en las que participás:</h3>
         <ul>
           {/* muestro la lista de campañas del usuario */}
-          {usuario.campañas?.map((c, index) => (
-            <li key={index}>{c.nombre}</li>
-          ))}
+          {usuario.campañas?.length > 0 ? (
+            usuario.campañas.map((c, index) => (
+              <li key={index}>
+                {c.nombre} - {new Date(c.fecha).toLocaleDateString()}
+              </li>
+            ))
+          ) : (
+            <li>No has participado en campañas aún.</li>
+          )}
         </ul>
       </div>
 
       <div className="perfil-opciones">
         {/* botón para cambiar contraseña, todavía no implementado */}
-        <button className="perfil-btn" onClick={() => alert("Función cambiar contraseña aún no implementada.")}>
+        <button
+          className="perfil-btn"
+          onClick={() => alert("Función cambiar contraseña aún no implementada.")}
+        >
           Cambiar contraseña
         </button>
         {/* botón para cerrar sesión */}

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import "../styles/inscripcion.css";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { postData } from "../servicios/fetch";
 
 const FormInscripcion = () => {
   // obtiene los datos pasados desde el botón "Inscribirse"
@@ -20,6 +18,7 @@ const FormInscripcion = () => {
     disponible: "",
   });
 
+  // actualiza el estado cuando se escribe o cambia algún input
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     setFormData({
@@ -93,6 +92,7 @@ const FormInscripcion = () => {
         <form className="volunteer-form" onSubmit={handleSubmit}>
           <p>Completa los siguientes datos para confirmar tu inscripción:</p>
 
+          {/* input para email */}
           <label htmlFor="email">Usuario:</label>
           <input
             type="email"
@@ -101,8 +101,10 @@ const FormInscripcion = () => {
             placeholder="Tu usuario..."
             value={formData.email}
             onChange={handleChange}
+            required
           />
 
+          {/* input para contraseña */}
           <label htmlFor="password">Contraseña:</label>
           <input
             type="password"
@@ -111,9 +113,9 @@ const FormInscripcion = () => {
             placeholder="Contraseña"
             value={formData.password}
             onChange={handleChange}
+            required
           />
 
-          <p>¿Aceptás estar disponible para participar el 20 de julio de 2025?</p>
           {/* pregunta personalizada con nombre y fecha */}
           <p>
             ¿Aceptas participar en la campaña{" "}
@@ -134,6 +136,7 @@ const FormInscripcion = () => {
                 value="sí"
                 checked={formData.disponible === "sí"}
                 onChange={handleChange}
+                required
               />{" "}
               Sí
             </label>
@@ -144,6 +147,7 @@ const FormInscripcion = () => {
                 value="no"
                 checked={formData.disponible === "no"}
                 onChange={handleChange}
+                required
               />{" "}
               No
             </label>
@@ -157,5 +161,6 @@ const FormInscripcion = () => {
       </div>
     </div>
   );
-}
+};
+
 export default FormInscripcion;
