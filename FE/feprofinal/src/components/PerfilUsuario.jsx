@@ -13,6 +13,8 @@ function PerfilUsuario() {
   // estado para previsualizar una nueva imagen
   const [preview, setPreview] = useState(null);
 
+  const [partipaciones,setParticipaciones] = useState([])
+
   // cuando el componente se monta, traigo los datos del perfil
   useEffect(() => {
     getPerfil()
@@ -21,6 +23,15 @@ function PerfilUsuario() {
         setNuevoNombre(data.nombre); // pongo el nombre actual para editar
       })
       .catch((error) => console.error(error)); // muestro error si falla
+    async function traerParticipaciones() {
+        console.log("entra");
+        const peticion = await fetch("http://127.0.0.1:8000/api/crear_participaciones/")
+        const respuesta = await peticion.json()
+        console.log(respuesta)
+        const filtradoPeticiones = respuesta.filter((partipacion)=>partipacion.usuario == localStorage.getItem("idUsuario"))
+        setParticipaciones(filtradoPeticiones)
+    }
+    traerParticipaciones()
   }, []);
 
   // función para guardar los cambios en el nombre
@@ -108,15 +119,15 @@ function PerfilUsuario() {
         <h3>Campañas en las que participás:</h3>
         <ul>
           {/* muestro la lista de campañas del usuario */}
-          {usuario.campañas?.length > 0 ? (
-            usuario.campañas.map((c, index) => (
-              <li key={index}>
-                {c.nombre} - {new Date(c.fecha).toLocaleDateString()}
-              </li>
-            ))
-          ) : (
-            <li>No has participado en campañas aún.</li>
-          )}
+          
+            {partipaciones.map((parti)=>{
+              return(
+                <>
+                  <li>{parti.nombre_campana}</li>
+                </>    
+              )
+            })}
+          
         </ul>
       </div>
 

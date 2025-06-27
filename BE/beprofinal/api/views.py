@@ -9,13 +9,9 @@ from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPI
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-<<<<<<< HEAD
 from .models import Comunidades, Campanas
 from rest_framework.decorators import api_view, permission_classes
 from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto, Comunidades
-=======
-from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto
->>>>>>> e65c948e4b51e29eaec5f49cde3627bda42a16cc
 from .serializers import (
     CampanaSerializer,
     ParticipacionesSerializer,
@@ -25,7 +21,6 @@ from .serializers import (
     ComunidadSerializer
 )
 
-<<<<<<< HEAD
 
 class ComunidadListCreateAPIView(generics.ListCreateAPIView):
     queryset = Comunidades.objects.all().order_by("nombre") 
@@ -41,9 +36,6 @@ class ComunidadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVie
 
 
 
-=======
-#  Permisos personalizados
->>>>>>> e65c948e4b51e29eaec5f49cde3627bda42a16cc
 class PermisoAcceso(BasePermission):
     def has_permission(self, request, view):
         usuario = request.user
@@ -202,7 +194,6 @@ class ParticipacionesDeleteView(DestroyAPIView):
     serializer_class = ParticipacionesSerializer
     lookup_field = 'id'
 
-<<<<<<< HEAD
 class ComunidadListCreateAPIView(generics.ListCreateAPIView):
     queryset           = Comunidades.objects.all().order_by("nombre")
     serializer_class   = ComunidadSerializer
@@ -212,20 +203,3 @@ class ComunidadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVie
     queryset           = Comunidades.objects.all()
     serializer_class   = ComunidadSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-=======
-# ⭐ Recomendaciones
-class RecomendacionesCrearView(ListCreateAPIView):
-    # permission_classes = [PermisoAcceso]          
-    queryset = Recomendaciones.objects.all()
-    serializer_class = RecomendacionesSerializer
-
-# 👥 Usuarios
-class MostrarUsuariosView(ListAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-
-class UsuarioDeleteView(DestroyAPIView):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-    lookup_field = 'id'
->>>>>>> e65c948e4b51e29eaec5f49cde3627bda42a16cc
