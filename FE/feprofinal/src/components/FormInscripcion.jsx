@@ -88,7 +88,7 @@ const FormInscripcion = () => {
   return (
     <div className="background">
       <div className="overlay"></div>
-      <div className="form-container">
+      <div className="form-containers">
         <form className="volunteer-form" onSubmit={handleSubmit}>
           <p>Completa los siguientes datos para confirmar tu inscripción:</p>
 
