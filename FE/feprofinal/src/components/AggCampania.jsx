@@ -118,7 +118,7 @@ const AggCampania = () => {
         onChange={(e) => setUbicacionCampana(e.target.value)}
       />
 
-      <select
+      <select className="btn-crear"
         value={comunidadSeleccionada}
         onChange={(e) => setComunidadSeleccionada(e.target.value)}
       >
@@ -128,26 +128,7 @@ const AggCampania = () => {
             {comunidad.nombre}
           </option>
         ))}
-        <option value="">San José</option>
-        {comunidades.map((comunidad) => (
-          <option key={comunidad.id} value={comunidad.id}>
-            {comunidad.nombre}
-          </option>
-        ))}
-        <option value="">Monteverde</option>
-        {comunidades.map((comunidad) => (
-          <option key={comunidad.id} value={comunidad.id}>
-            {comunidad.nombre}
-          </option>
-        ))}
-        <option value="">Cartago</option>
-        {comunidades.map((comunidad) => (
-          <option key={comunidad.id} value={comunidad.id}>
-            {comunidad.nombre}
-          </option>
-        ))}
       </select>
-
       <button type="submit" className="btn-crear">
         Crear campaña
       </button>

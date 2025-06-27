@@ -34,7 +34,10 @@ urlpatterns  = [
          name="comunidad-list-create"),
     path("comunidades/<int:pk>/", ComunidadRetrieveUpdateDestroyAPIView.as_view(),
          name="comunidad-detail"),
-    path('perfil/', PerfilUsuarioView.as_view(), name="perfil"),
+    # path('perfil/', PerfilUsuarioView.as_view(), name="perfil"),
+    path("crear_participaciones/", CrearParticipacionView.as_view(), name="crear_participaciones"),
+    path("perfil/", PerfilUsuarioView.as_view(), name="perfil"),
+
 ]
 
 

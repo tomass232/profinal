@@ -12,6 +12,7 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 from .models import Comunidades, Campanas
 from rest_framework.decorators import api_view, permission_classes
 from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto, Comunidades
+from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto
 from .serializers import (
     CampanaSerializer,
     ParticipacionesSerializer,
@@ -36,6 +37,7 @@ class ComunidadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVie
 
 
 
+#  Permisos personalizados
 class PermisoAcceso(BasePermission):
     def has_permission(self, request, view):
         usuario = request.user
@@ -203,3 +205,17 @@ class ComunidadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIVie
     queryset           = Comunidades.objects.all()
     serializer_class   = ComunidadSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+class RecomendacionesCrearView(ListCreateAPIView):
+    # permission_classes = [PermisoAcceso]          
+    queryset = Recomendaciones.objects.all()
+    serializer_class = RecomendacionesSerializer
+
+class MostrarUsuariosView(ListAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+
+class UsuarioDeleteView(DestroyAPIView):
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
+    lookup_field = 'id'

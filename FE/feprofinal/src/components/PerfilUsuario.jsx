@@ -38,7 +38,7 @@ function PerfilUsuario() {
   const guardarCambios = () => {
     actualizarPerfil(nuevoNombre)
       .then((actualizado) => {
-        setUsuario(actualizado); // actualizo el estado con la nueva info
+        setUsuario(actualizado); // actualizo el estado con la nueva info 
         setEditando(false); // salgo del modo edición
         setMensaje("Nombre actualizado correctamente."); // muestro mensaje
         setTimeout(() => setMensaje(""), 3000); // borro mensaje después de unos segundos
