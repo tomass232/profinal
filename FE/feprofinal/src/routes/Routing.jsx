@@ -22,12 +22,12 @@ function Routing() {
                 <Route path="/home" element={<Home />} /> 
                 <Route path="/inscripcion" element={<Inscripcion />} />
                 <Route path="/contacto" element={<Contacto />} />
-                <Route path="/comunidad" element={<Comunidad />} />
                 {/*rutas privadas */}
-                {<Route path="/admin" element={<Privada children={<Privada children={<Admin/>}/>} />} />}
+                <Route path="/admin" element={<Privada children={<Privada children={<Admin/>}/>} />} />
                 <Route path="/campaña" element={<Privada children={<Privada children={<Campaña/>}/>} />} /> 
                 <Route path="/inscripcion" element={<Privada children={<Privada children={<Inscripcion/>}/>} />} /> 
-                <Route path="/perfil" element={<Privada children={<Privada children={<Perfil/>}/>} />} />       
+                <Route path="/perfil" element={<Privada children={<Privada children={<Perfil/>}/>} />} />  
+                <Route path="/comunidad" element={<Privada children={<Privada children={<Comunidad/>}/>}/>}/>     
       </Routes>
     </BrowserRouter>
   );

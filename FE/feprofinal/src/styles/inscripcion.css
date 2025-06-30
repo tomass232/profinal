@@ -48,7 +48,6 @@
   padding: 0.5rem;
   width: 90%;
   border: none;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.7);
   background: transparent;
   color: #fff;
   font-size: 1rem;
@@ -63,7 +62,7 @@
 
 .form-containers input[type="email"]:focus,
 .form-containers input[type="password"]:focus {
-  border-bottom: 2px solid #00b7ff;
+  border-bottom: 2px solid #a3b5bd;
 }
 
 .radio-group {
@@ -79,13 +78,14 @@
   color: #fff;
 }
 
-
-
-.animated-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.animated-buttons {
+   margin-top: 15px;
+  padding: 10px;
+  border: none;
+  color: white;
+  background-color: transparent;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .arrow-button {
@@ -96,7 +96,7 @@
   border-radius: 100px; 
   opacity: 1;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-  width: 160px;    /* Ancho amplio */
+  width: 160px;
   height: 40px;   
   display: flex;
   align-items: center;
@@ -112,7 +112,7 @@
 
 .animated-button:hover {
   box-shadow: 0 0 0 12px transparent;
-  color: #212121;
+ 
   border-radius: 12px;
 }
 
@@ -134,11 +134,12 @@
 
 .animated-button:active {
   scale: 0.95;
-  box-shadow: 0 0 0 4px rgb(159, 160, 158);
+  background: transparent;
 }
 
 .animated-button:hover .circle {
   width: 15px;
   height: 15px;
   opacity: 1;
+  background: transparent;
 }

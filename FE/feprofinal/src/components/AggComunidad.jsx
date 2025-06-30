@@ -62,7 +62,7 @@ const AggComunidad = () => {
           onChange={(e) => setUbicacion(e.target.value)}
         />
 
-        <button type="button" onClick={handleSubmit}>Guardar Comunidad</button>
+        <button className="Button-s" type="button" onClick={handleSubmit}>Guardar Comunidad</button>
       </form>
     </div>
   );

@@ -30,24 +30,42 @@ function Cards() {
     });
   };
 
-  // función para editar campaña haciendo PUT al backend
-  const editarCampana = async (id) => {
-    const objEditado = {
-      titulo_campana: nuevoTitulo,
-      descripcion_campana: nuevaDescripcion,
-      fecha_campana: nuevaFecha,
-      hora_campana: nuevaHora,
-      ubicacion_campana: nuevaUbicacion
-    };
-    const respuesta = await putData(`api/actualizar_campana/${id}/`, objEditado);
-    console.log("Respuesta de editar campaña:", respuesta);
+const editarCampana = async (id) => {
+  const campaña = data.find((c) => c.id === id);
+  if (!campaña) {
+    console.error("Campaña no encontrada");
+    return;
   }
+
+  const fechaCompleta =
+    nuevaFecha && nuevaHora
+      ? `${nuevaFecha}T${nuevaHora}:00`
+      : campaña.fecha_campana;
+
+  const objEditado = {
+    titulo_campana: nuevoTitulo || campaña.titulo_campana,
+    descripcion_campana: nuevaDescripcion || campaña.descripcion_campana,
+    fecha_campana: fechaCompleta,
+    ubicacion_campana: nuevaUbicacion || campaña.ubicacion_campana,
+    comunidad: campaña.comunidad,
+  };
+
+  try {
+    await putData(`api/actualizar_campana/${id}/`, objEditado);
+    const nuevas = await getData("api/crear_campana/");
+    setData(nuevas);
+    setSelectedCampaignId(null); 
+  } catch (err) {
+    console.error("Error actualizando campaña:", err);
+    alert("No se pudo actualizar la campaña.");
+  }
+};
 
   // función para eliminar campaña haciendo DELETE al backend
   const eliminarCampana = async (id) => {
     const peticion = await deleteData(`api/eliminar_campana/${id}/`);
     console.log("Respuesta de eliminar campaña:", peticion);
-  }
+  };
 
   useEffect(() => {
     console.log("Componente Cards montado");
