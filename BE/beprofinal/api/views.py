@@ -1,7 +1,6 @@
 from rest_framework import generics, permissions
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from .models import Comunidades
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -9,10 +8,8 @@ from rest_framework.generics import ListCreateAPIView, DestroyAPIView, UpdateAPI
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import BasePermission, SAFE_METHODS
-from .models import Comunidades, Campanas
 from rest_framework.decorators import api_view, permission_classes
 from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto, Comunidades
-from .models import Campanas, Participaciones, Recomendaciones, Usuario, MensajeContacto
 from .serializers import (
     CampanaSerializer,
     ParticipacionesSerializer,
@@ -22,22 +19,11 @@ from .serializers import (
     ComunidadSerializer
 )
 
-
-class ComunidadListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Comunidades.objects.all().order_by("nombre") 
-    serializer_class = ComunidadSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-
 class ComunidadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comunidades.objects.all() 
     serializer_class = ComunidadSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
-
-
-#  Permisos personalizados
 class PermisoAcceso(BasePermission):
     def has_permission(self, request, view):
         usuario = request.user
@@ -201,9 +187,19 @@ class ComunidadListCreateAPIView(generics.ListCreateAPIView):
     serializer_class   = ComunidadSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-class ComunidadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ComunidadUpdateAPIView(generics.UpdateAPIView):
     queryset           = Comunidades.objects.all()
     serializer_class   = ComunidadSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+class ComunidadRetriveAPIView(generics.RetrieveAPIView):
+    queryset           = Comunidades.objects.all()
+    serializer_class   = ComunidadSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+class ComunidadDeleteView(generics.DestroyAPIView):
+    queryset = Comunidades.objects.all()
+    serializer_class = ComunidadSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class RecomendacionesCrearView(ListCreateAPIView):

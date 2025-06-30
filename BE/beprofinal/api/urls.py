@@ -9,12 +9,14 @@ from .views import (
     CampanaUpdateView,
     # MostrarUsuariosView,
    MostrarParticipacionesView,
-    # UsuarioDeleteView,
+    UsuarioDeleteView,
+    PerfilUsuarioView,
+    CrearParticipacionView,
+    ParticipacionesDeleteView,
     ComunidadListCreateAPIView,
     ComunidadRetrieveUpdateDestroyAPIView,
-    ParticipacionesDeleteView,
-    PerfilUsuarioView,
-    CrearParticipacionView
+    ComunidadDeleteView,
+    ComunidadUpdateAPIView,
 )
 
 urlpatterns  = [
@@ -28,15 +30,15 @@ urlpatterns  = [
     # path('mostrar_usuarios/',MostrarUsuariosView.as_view()),
     path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
     path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
-    # path('eliminar_usuario/<int:id>/', UsuarioDeleteView.as_view (), name='eliminar_usuario'),
+    path('eliminar_usuario/<int:id>/', UsuarioDeleteView.as_view (), name='eliminar_usuario'),
     path('eliminar_participaciones/<int:id>/', ParticipacionesDeleteView.as_view(), name='eliminar_participaciones'),
-    path("comunidades/", ComunidadListCreateAPIView.as_view(),
-         name="comunidad-list-create"),
-    path("comunidades/<int:pk>/", ComunidadRetrieveUpdateDestroyAPIView.as_view(),
-         name="comunidad-detail"),
+    path("comunidades/", ComunidadListCreateAPIView.as_view(), name="comunidad-list-create"),
+    path("comunidades/<int:pk>/", ComunidadRetrieveUpdateDestroyAPIView.as_view(), name="comunidad-detail"),
     # path('perfil/', PerfilUsuarioView.as_view(), name="perfil"),
     path("crear_participaciones/", CrearParticipacionView.as_view(), name="crear_participaciones"),
     path("perfil/", PerfilUsuarioView.as_view(), name="perfil"),
+    path('eliminar_comunidad/<int:id>/', ComunidadDeleteView.as_view(), name='eliminar_comunidad'),
+    path('actualizar_comunidad/<int:id>/', ComunidadUpdateAPIView.as_view(), name='actualizar_comunidad'),
 
 ]
 

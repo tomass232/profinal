@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 import { getData } from '../servicios/fetch'
 import Cards from '../components/Cards'
 import "../styles/campanias.css"
-import BotonComponente from '../components/BotonComponente'
+
 
 
 function Campaña() {
@@ -29,18 +29,10 @@ function Campaña() {
       <FormCampaña />
       </div>
       <div className="lado-cards">
-        {/* <Cards data={campanias} /> */}
         <Cards/>
-        {/* {campanias.map((campania)=>{
-          return(
-            <p>{campania.titulo_campana}</p>
-          )
-        })} */}
-
-        
       </div>
     </div>
-      <BotonComponente />
+     
       <Footer />
     </>
   );

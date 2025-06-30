@@ -154,7 +154,7 @@ const FormInscripcion = () => {
           </div>
 
           {/* botón para enviar */}
-          <button className="animated-button">
+          <button className="animated-buttons">
             <span className="text">Confirmar inscripción</span>
           </button>
         </form>

@@ -9,8 +9,7 @@ function FormHome() {
       <img
         className="fondo"
         src="https://alfayomega.es/wp-content/uploads/2024/07/Umuganda-Ruanda-Ruandeses.jpg"
-        alt="Fondo"
-      />
+        alt="Fondo"/>
       <div className="contenido">
         <div className="info">
           <h2>¿Qué es nuestra plataforma?</h2>

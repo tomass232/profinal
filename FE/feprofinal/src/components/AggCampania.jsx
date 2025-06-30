@@ -14,6 +14,7 @@ const AggCampania = () => {
   const [ubicacion_campana, setUbicacionCampana] = useState("");
   const [comunidades, setComunidades] = useState([]);
   const [comunidadSeleccionada, setComunidadSeleccionada] = useState(""); 
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const cargarComunidades = async () => {
@@ -26,11 +27,11 @@ const AggCampania = () => {
     };
 
     cargarComunidades();
-  }, []);
+  }, [refresh]);
 
   const enviarCampana = async (e) => {
     e.preventDefault();
-
+    setRefresh(r => !r);  
     if (
       titulo_campana.trim() === "" ||
       descripcion_campana.trim() === "" ||
@@ -86,9 +87,12 @@ const AggCampania = () => {
   };
 
   return (
-    <form className="form-crear-campaña" onSubmit={enviarCampana}>
+    <>
+    <div className="fondou">
+      </div>
+    <div className="contenedor-campania">    
+      <form className="form-crear-campaña" onSubmit={enviarCampana}>
       <h5>Crear nueva campaña</h5>
-
       <input
         type="text"
         placeholder="Título"
@@ -133,6 +137,8 @@ const AggCampania = () => {
         Crear campaña
       </button>
     </form>
+    </div>
+</>
   );
 };
 
