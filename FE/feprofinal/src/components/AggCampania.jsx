@@ -123,7 +123,7 @@ const AggCampania = () => {
         onChange={(e) => setComunidadSeleccionada(e.target.value)}
       >
         <option value="">Seleccione una comunidad</option>
-        {comunidades.map((comunidad) => (
+        {comunidades.map((comunidad) => ( 
           <option key={comunidad.id} value={comunidad.id}>
             {comunidad.nombre}
           </option>

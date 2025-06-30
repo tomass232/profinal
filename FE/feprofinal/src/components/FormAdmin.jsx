@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import '../styles/admin.css';
-
+//FormadminUsuarios
 function FormAdmin() {
   // estado para guardar la lista de usuarios inscritos
   const [usuariosInscritos, setUsuariosInscritos] = useState([]);
@@ -23,15 +23,11 @@ function FormAdmin() {
         return response.json();
       })
       .then((data) => {
-        setUsuariosInscritos(data); // guardo los usuarios en el estado
-      })
-      .catch((error) => console.error('Error:', error));
-
-    // traer solicitudes de inscripción
         setUsuariosInscritos(data);
       })
       .catch((error) => console.error('Error:', error));
 
+    // traer solicitudes de inscripción
     fetch(`${BASE_URL}/api/crear_participaciones/`)
       .then((response) => {
         if (!response.ok) {
@@ -40,43 +36,23 @@ function FormAdmin() {
         return response.json();
       })
       .then((data) => {
-        setSolicitudesInscripcion(data); // guardo las solicitudes en el estado
         setSolicitudesInscripcion(data);
       })
       .catch((error) => console.error('Error:', error));
-  } [];
+  }, []);
 
-  // función para editar, por ahora solo imprime el id y si es solicitud o usuario
+  // función para editar (o aceptar solicitud)
   const handleEditar = (id, isSolicitud = false) => {
     console.log('Editar', isSolicitud ? 'solicitud' : 'usuario', 'con id:', id);
+    // Aquí puedes implementar la lógica para editar o aceptar
   };
 
   // función para eliminar tanto usuarios como solicitudes
-  const handleEliminar = (id, isSolicitud = false) => {
-    // si es solicitud uso una ruta, si es usuario otra
-  const handleEditar = (id, isSolicitud = false) => {
-    console.log('Editar', isSolicitud ? 'solicitud' : 'usuario', 'con id:', id);
-    // Aquí puedes implementar la lógica para editar
-  };
-
   const handleEliminar = async (id, isSolicitud = false) => {
     const url = isSolicitud
-      ? `${BASE_URL}/api/mostrar_usuarios/${id}/`
+      ? `${BASE_URL}/api/crear_participaciones/${id}/`
       : `${BASE_URL}/api/eliminar_usuario/${id}/`;
 
-    fetch(url, { method: 'DELETE' })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error al eliminar el registro');
-        }
-        // actualizo el estado para eliminar el elemento borrado de la tabla
-        if (isSolicitud) {
-          setSolicitudesInscripcion((prev) => prev.filter((item) => item.id !== id));
-        } else {
-          setUsuariosInscritos((prev) => prev.filter((user) => user.id !== id));
-        }
-      })
-      .catch((error) => console.error('Error eliminando registro:', error));
     try {
       const response = await fetch(url, { method: 'DELETE' });
       if (!response.ok) {
@@ -186,7 +162,7 @@ function FormAdmin() {
                             className="btoneliminar"
                             onClick={() => handleEliminar(item.id, true)}
                           >
-                            
+                            Eliminar
                           </button>
                         </td>
                       </tr>
