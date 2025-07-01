@@ -1,11 +1,19 @@
+body {
+  background-image: url('https://149797850.v2.pressablecdn.com/wp-content/uploads/2024/02/Website-Photos-41.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
 .form-container {
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  background: white;
+  max-width: 600px;
+  margin: 80px ;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  background: rgba(255, 255, 255, 0.8);
   font-family: Arial, Helvetica, sans-serif;
+  backdrop-filter: blur(10px); 
 }
 
 form {
@@ -14,28 +22,32 @@ form {
 }
 
 label {
-  margin-top: 10px;
+  margin-top: 15px;
   font-weight: bold;
+  font-size: 16px;
 }
 
 input, textarea {
-  padding: 8px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 10px;
   border: 1px solid #ccc;
-  margin-top: 5px;
-  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 6px;
+  font-size: 15px;
 }
 
 .Button-s {
-  margin-top: 15px;
-  padding: 10px;
+  margin-top: 20px;
+  padding: 12px;
   border: none;
-  background-color: #949494;
+  background-color: #754c29;   
   color: white;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.Button-S:hover {
-  background-color: #818181;
+.Button-s:hover {
+  background-color: #5e3d22;
 }

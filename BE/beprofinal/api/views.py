@@ -201,7 +201,7 @@ class ComunidadDeleteView(generics.DestroyAPIView):
     queryset = Comunidades.objects.all()
     serializer_class = ComunidadSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
+    
 class RecomendacionesCrearView(ListCreateAPIView):
     # permission_classes = [PermisoAcceso]          
     queryset = Recomendaciones.objects.all()
