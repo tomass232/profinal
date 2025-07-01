@@ -19,6 +19,26 @@ from .serializers import (
     ComunidadSerializer
 )
 
+class ActualizarUsuarioAdminView(APIView):
+    permission_classes = [IsAuthenticated]  
+
+    def put(self, request, user_id):
+        try:
+            usuario = User.objects.get(id=user_id)
+            usuario.username = request.data.get("username", usuario.username)
+            usuario.email = request.data.get("email", usuario.email)
+            usuario.save()
+            return Response({"mensaje": "Usuario actualizado"})
+        except User.DoesNotExist:
+            return Response({"error": "Usuario no encontrado"}, status=404)
+
+
+
+
+
+
+
+
 class ComunidadRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comunidades.objects.all() 
     serializer_class = ComunidadSerializer

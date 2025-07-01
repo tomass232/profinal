@@ -15,6 +15,8 @@ function PerfilUsuario() {
 
   const [partipaciones,setParticipaciones] = useState([])
 
+  
+
   // cuando el componente se monta, traigo los datos del perfil
   useEffect(() => {
     getPerfil()
@@ -69,7 +71,7 @@ function PerfilUsuario() {
 
   return (
     <div className="perfil-container">
-      {/* sección para imagen de perfil */}
+      
       <div className="perfil-avatar">
         <img
           src={usuario.imagen || preview || "/img/perfil-default.png"}
@@ -118,7 +120,7 @@ function PerfilUsuario() {
       <div className="perfil-campanas">
         <h3>Campañas en las que participás:</h3>
         <ul>
-          {/* muestro la lista de campañas del usuario */}
+        
           
             {partipaciones.map((parti)=>{
               return(
@@ -128,25 +130,25 @@ function PerfilUsuario() {
               )
             })}
           
-          
+
         </ul>
       </div>
 
       <div className="perfil-opciones">
-        {/* botón para cambiar contraseña, todavía no implementado */}
+      
         <button
           className="perfil-btn"
           onClick={() => alert("Función cambiar contraseña aún no implementada.")}
         >
           Cambiar contraseña
         </button>
-        {/* botón para cerrar sesión */}
+    
         <button className="perfil-btn cerrar" onClick={cerrarSesion}>
           Cerrar sesión
         </button>
       </div>
 
-      {/* muestro mensaje si hay alguno */}
+      
       {mensaje && <p className="perfil-mensaje">{mensaje}</p>}
     </div>
   );

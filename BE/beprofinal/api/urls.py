@@ -7,7 +7,7 @@ from .views import (
     IniciarSesionView,
     CampanaDeleteView,
     CampanaUpdateView,
-    # MostrarUsuariosView,
+     MostrarUsuariosView,
    MostrarParticipacionesView,
     UsuarioDeleteView,
     PerfilUsuarioView,
@@ -17,6 +17,7 @@ from .views import (
     ComunidadRetrieveUpdateDestroyAPIView,
     ComunidadDeleteView,
     ComunidadUpdateAPIView,
+    ActualizarUsuarioAdminView
 )
 
 urlpatterns  = [
@@ -27,7 +28,7 @@ urlpatterns  = [
     path('login/', IniciarSesionView.as_view(), name="iniciar_sesion"),
     path('eliminar_campana/<int:id>/', CampanaDeleteView.as_view(), name='eliminar_campana'),
     path('actualizar_campana/<int:id>/', CampanaUpdateView.as_view(), name='actualizar_campana'),
-    # path('mostrar_usuarios/',MostrarUsuariosView.as_view()),
+     path('mostrar_usuarios/',MostrarUsuariosView.as_view()),
     path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
     path('mostrar_participaciones/',MostrarParticipacionesView.as_view()),
     path('eliminar_usuario/<int:id>/', UsuarioDeleteView.as_view (), name='eliminar_usuario'),
@@ -38,6 +39,7 @@ urlpatterns  = [
     path("crear_participaciones/", CrearParticipacionView.as_view(), name="crear_participaciones"),
     path("perfil/", PerfilUsuarioView.as_view(), name="perfil"),
     path('eliminar_comunidad/<int:id>/', ComunidadDeleteView.as_view(), name='eliminar_comunidad'),
+    path("actualizar_usuario/<int:user_id>/", ActualizarUsuarioAdminView.as_view(), name="actualizar_usuario"),
     path('actualizar_comunidad/<int:id>/', ComunidadUpdateAPIView.as_view(), name='actualizar_comunidad'),
 
 ]

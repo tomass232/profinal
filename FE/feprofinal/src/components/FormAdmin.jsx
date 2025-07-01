@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
+import { putData } from '../servicios/fetch'; // ✅ usamos tu función existente
 import '../styles/admin.css';
-//FormadminUsuarios
+
 function FormAdmin() {
   // estado para guardar la lista de usuarios inscritos
   const [usuariosInscritos, setUsuariosInscritos] = useState([]);
@@ -9,45 +10,52 @@ function FormAdmin() {
   // estado para guardar la lista de solicitudes de inscripción
   const [solicitudesInscripcion, setSolicitudesInscripcion] = useState([]);
 
+  const [editingUserId, setEditingUserId] = useState(null);
+  const [editedName, setEditedName] = useState('');
+  const [editedEmail, setEditedEmail] = useState('');
+
+
   // base URL del backend para las peticiones
   const BASE_URL = 'http://localhost:8000';
+
 
   // useEffect para cargar los datos cuando el componente se monta
   useEffect(() => {
     // traer usuarios inscritos
     fetch(`${BASE_URL}/api/mostrar_usuarios/`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error al cargar usuarios');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setUsuariosInscritos(data);
-      })
+      .then((r) => r.json())
+      .then(setUsuariosInscritos)
       .catch((error) => console.error('Error:', error));
 
     // traer solicitudes de inscripción
     fetch(`${BASE_URL}/api/crear_participaciones/`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error al cargar solicitudes de inscripción');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setSolicitudesInscripcion(data);
-      })
+      .then((r) => r.json())
+      .then(setSolicitudesInscripcion)
       .catch((error) => console.error('Error:', error));
   }, []);
 
-  // función para editar (o aceptar solicitud)
-  const handleEditar = (id, isSolicitud = false) => {
-    console.log('Editar', isSolicitud ? 'solicitud' : 'usuario', 'con id:', id);
-    // Aquí puedes implementar la lógica para editar o aceptar
+  const handleEditar = (id, username, email) => {
+    setEditingUserId(id);
+    setEditedName(username);
+    setEditedEmail(email);
   };
 
-  // función para eliminar tanto usuarios como solicitudes
+  const handleGuardar = async (id) => {
+    try {
+      await putData(`api/actualizar_usuario/${id}/`, {
+        username: editedName,
+        email: editedEmail,
+      });
+      const actualizados = usuariosInscritos.map((u) =>
+        u.id === id ? { ...u, username: editedName, email: editedEmail } : u
+      );
+      setUsuariosInscritos(actualizados);
+      setEditingUserId(null);
+    } catch (error) {
+      console.error('Error al guardar usuario:', error);
+    }
+  };
+
   const handleEliminar = async (id, isSolicitud = false) => {
     const url = isSolicitud
       ? `${BASE_URL}/api/crear_participaciones/${id}/`
@@ -55,29 +63,24 @@ function FormAdmin() {
 
     try {
       const response = await fetch(url, { method: 'DELETE' });
-      if (!response.ok) {
-        throw new Error('Error al eliminar el registro');
-      }
-
+      if (!response.ok) throw new Error('Error al eliminar');
       if (isSolicitud) {
-        setSolicitudesInscripcion((prev) => prev.filter((item) => item.id !== id));
+        setSolicitudesInscripcion((prev) => prev.filter((i) => i.id !== id));
       } else {
-        setUsuariosInscritos((prev) => prev.filter((user) => user.id !== id));
+        setUsuariosInscritos((prev) => prev.filter((u) => u.id !== id));
       }
     } catch (error) {
-      console.error('Error eliminando registro:', error);
+      console.error('Error eliminando:', error);
     }
   };
 
   return (
     <Container fluid className="admin-container">
       <Row className="admin-header">
-        <Col>
-          <h1>Panel de Administración</h1>
-        </Col>
+        <Col><h1>Panel de Administración</h1></Col>
       </Row>
 
-      {/* tabla de usuarios inscritos */}
+      
       <Row className="mb-4">
         <Col>
           <Card className="admin-card full-width-card">
@@ -90,7 +93,7 @@ function FormAdmin() {
                       <th>ID</th>
                       <th>Nombre</th>
                       <th>Correo</th>
-                      <th>Fecha de inscripción</th>
+                      <th>Fecha</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -98,16 +101,40 @@ function FormAdmin() {
                     {usuariosInscritos.map((user) => (
                       <tr key={user.id}>
                         <td>{user.id}</td>
-                        <td>{user.username}</td>
-                        <td>{user.email}</td>
+                        <td>
+                          {editingUserId === user.id ? (
+                            <input
+                              value={editedName}
+                              onChange={(e) => setEditedName(e.target.value)}
+                            />
+                          ) : (
+                            user.username
+                          )}
+                        </td>
+                        <td>
+                          {editingUserId === user.id ? (
+                            <input
+                              value={editedEmail}
+                              onChange={(e) => setEditedEmail(e.target.value)}
+                            />
+                          ) : (
+                            user.email
+                          )}
+                        </td>
                         <td>{new Date(user.date_joined).toLocaleString()}</td>
                         <td className="td-actions">
-                          <button
-                            className="btoneditar"
-                            onClick={() => handleEditar(user.id)}
-                          >
-                            Editar
-                          </button>
+                          {editingUserId === user.id ? (
+                            <button className="btoneditar" onClick={() => handleGuardar(user.id)}>
+                              Guardar
+                            </button>
+                          ) : (
+                            <button
+                              className="btoneditar"
+                              onClick={() => handleEditar(user.id, user.username, user.email)}
+                            >
+                              Editar
+                            </button>
+                          )}
                           <button
                             className="btoneliminar"
                             onClick={() => handleEliminar(user.id)}
@@ -127,7 +154,7 @@ function FormAdmin() {
         </Col>
       </Row>
 
-      {/* tabla de solicitudes de inscripción */}
+     
       <Row>
         <Col>
           <Card className="admin-card full-width-card">
@@ -140,7 +167,7 @@ function FormAdmin() {
                       <th>ID</th>
                       <th>Nombre</th>
                       <th>Correo</th>
-                      <th>Fecha de solicitud</th>
+                      <th>Fecha</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -152,10 +179,7 @@ function FormAdmin() {
                         <td>{item.email}</td>
                         <td>{new Date(item.date_joined).toLocaleString()}</td>
                         <td className="td-actions">
-                          <button
-                            className="btoneditar"
-                            onClick={() => handleEditar(item.id, true)}
-                          >
+                          <button className="btoneditar" onClick={() => console.log('Aceptar')}>
                             Aceptar
                           </button>
                           <button
