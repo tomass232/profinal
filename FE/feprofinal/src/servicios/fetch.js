@@ -1,12 +1,12 @@
 const API_BASE_URL = "http://localhost:8000/";
 export const postData = async (endpoint, data) => {
   try {
-    const token = localStorage.getItem("token"); // 🔐 obtenemos el token JWT
+    const token = localStorage.getItem("token"); //  obtenemos el token JWT
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        ...(token && { Authorization: `Bearer ${token}` }) // 🔐 incluimos token si existe
+        ...(token && { Authorization: `Bearer ${token}` }) // incluimos token si existe
       },
       body: JSON.stringify(data)
     });

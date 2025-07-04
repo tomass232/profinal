@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
-import { putData } from '../servicios/fetch'; // ✅ usamos tu función existente
+import { putData } from '../servicios/fetch'; // usamos tu función existente
 import '../styles/admin.css';
 
 function FormAdmin() {

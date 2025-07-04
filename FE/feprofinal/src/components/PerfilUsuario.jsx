@@ -30,7 +30,7 @@ function PerfilUsuario() {
         const peticion = await fetch("http://127.0.0.1:8000/api/crear_participaciones/")
         const respuesta = await peticion.json()
         console.log(respuesta)
-        const filtradoPeticiones = respuesta.filter((partipacion)=>partipacion.usuario == localStorage.getItem("idUsuario"))
+        const filtradoPeticiones = respuesta.filter((partipacion)=>partipacion.usuario == localStorage.getItem("usuario"))
         setParticipaciones(filtradoPeticiones)
     }
     traerParticipaciones()

@@ -93,12 +93,12 @@ const FormInscripcion = () => {
           <p>Completa los siguientes datos para confirmar tu inscripción:</p>
 
           {/* input para email */}
-          <label htmlFor="email">Usuario:</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="Tu usuario..."
+            placeholder="Tu email..."
             value={formData.email}
             onChange={handleChange}
             required

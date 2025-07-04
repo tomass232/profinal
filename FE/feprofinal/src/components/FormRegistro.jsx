@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { postData, postUser } from "../servicios/fetch";
-import Swal from "sweetalert2"; // ✅ SweetAlert2
+import Swal from "sweetalert2"; 
 import "../styles/Registro.css";
 import { useNavigate } from "react-router-dom";
 
